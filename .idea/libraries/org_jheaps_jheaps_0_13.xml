@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.jheaps:jheaps:0.13" type="repository">
+    <properties maven-id="org.jheaps:jheaps:0.13" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jheaps/jheaps/0.13/jheaps-0.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
