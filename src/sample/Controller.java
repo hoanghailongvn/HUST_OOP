@@ -72,6 +72,7 @@ public class Controller {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
+
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
