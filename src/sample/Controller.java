@@ -4,6 +4,7 @@ package sample;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -16,8 +17,10 @@ import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
 import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     @FXML
     private MenuItem openFile;
@@ -37,7 +40,7 @@ public class Controller {
 
     @FXML
     private TextArea historicalPath;
-
+    public static String a;
 
     @FXML
     private  TextArea allPath;
@@ -165,5 +168,10 @@ public class Controller {
             alert.setHeaderText("Kich roi, khong lui duoc nua");
             alert.show();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        historicalPath.setText("abc");
     }
 }
