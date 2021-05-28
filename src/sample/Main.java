@@ -60,11 +60,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-
-//        graphDisplay.render("1", "7");
         root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
+<<<<<<< HEAD
         primaryStage.setTitle("GraphFX usage example");
 //        layout = new StackPane();
 //        layout.setPadding(new Insets(20));
@@ -77,6 +75,10 @@ public class Main extends Application {
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 600, 600));
+=======
+        primaryStage.setTitle("My Project");
+        primaryStage.setScene(new Scene(root, 1300, 700));
+>>>>>>> 6b3508ef0d0db207d8b59636c4af165df80f1982
         stage = primaryStage;
         primaryStage.show();
     }

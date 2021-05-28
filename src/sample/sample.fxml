@@ -49,13 +49,13 @@
          </padding></AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="43.0" prefHeight="173.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
          <children>
-            <Label layoutX="8.0" layoutY="49.0" text="Label" />
+            <Label layoutX="8.0" layoutY="49.0" text="Start Vertex" />
             <TextField fx:id="inputBegin" layoutX="56.0" layoutY="44.0" onAction="#inputBeginAction" AnchorPane.topAnchor="44.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <Label layoutX="8.0" layoutY="88.0" text="Label" />
+            <Label layoutX="8.0" layoutY="88.0" text="End Vertex" />
             <TextField fx:id="inputEnd" layoutX="56.0" layoutY="84.0" onAction="#inputEndAction" />
             <HBox layoutX="38.0" layoutY="210.0" prefHeight="55.0" prefWidth="90.0" spacing="10.0">
                <children>
@@ -81,8 +81,8 @@
             </HBox>
             <HBox layoutX="14.0" layoutY="162.0" prefHeight="30.0" prefWidth="170.0" spacing="30.0">
                <children>
-                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#btnStartAction" text="Graph" />
-                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopAction" text="Button" />
+                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#btnStartAction" text="Start" />
+                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopAction" text="Stop" />
                </children>
             </HBox>
          </children>

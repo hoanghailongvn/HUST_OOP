@@ -5,10 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -106,23 +103,53 @@ public class Controller {
     public void btnStartAction(ActionEvent event){
         textEnd = inputEnd.getText();
         textBegin = inputBegin.getText();
-        System.out.println(textBegin);
-        System.out.println(textEnd);
+        Main.graphDisplay.render(textBegin, textEnd);
     }
     @FXML
     private Button btnStop;
     public void btnStopAction(ActionEvent event){
-
+        Main.graphDisplay.situation = false;
+        Main.graphDisplay.setElements();
     }
     @FXML
     private Button btnNext;
     public void btnNextAction(ActionEvent event){
-
+        if(Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
+            Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
+                    Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
+            Main.graphDisplay.count += 1;
+            String previous_vertex = Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1);
+            Main.graphDisplay.actionOnClick_2.execute(Main.graphDisplay, previous_vertex);
+            Main.graphDisplay.customActionOnClick_2.accept(previous_vertex,
+                    Main.graphDisplay.nodes.get(previous_vertex));
+            Main.graphDisplay.lastVertexClicked = previous_vertex;
+            Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Stop");
+            alert.setHeaderText("Kich roi, khong tien duoc nua");
+            alert.show();
+        }
     }
 
     @FXML
     private Button btnBack;
     public void btnBackAction(ActionEvent event){
-
+        if(Main.graphDisplay.count > 1) {
+            Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
+                    Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
+            Main.graphDisplay.count -= 1;
+            String previous_vertex = Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1);
+            Main.graphDisplay.actionOnClick_2.execute(Main.graphDisplay, previous_vertex);
+            Main.graphDisplay.customActionOnClick_2.accept(previous_vertex,
+                    Main.graphDisplay.nodes.get(previous_vertex));
+            Main.graphDisplay.lastVertexClicked = previous_vertex;
+            Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Stop");
+            alert.setHeaderText("Kich roi, khong lui duoc nua");
+            alert.show();
+        }
     }
 }
