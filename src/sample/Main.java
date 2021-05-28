@@ -26,7 +26,9 @@ import java.util.Scanner;
 public class Main extends Application {
     public static Graph<String, DefaultEdge> g = null;
     public static GraphDisplay<String, DefaultEdge> graphDisplay = new GraphDisplay<>(g);
-
+    public static StackPane layout;
+    public static Parent root;
+    public static Stage stage;
     public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
@@ -60,10 +62,10 @@ public class Main extends Application {
 
 
 //        graphDisplay.render("1", "7");
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         primaryStage.setTitle("GraphFX usage example");
-        StackPane layout = new StackPane();
+        layout = new StackPane();
         layout.setPadding(new Insets(20));
         layout.getChildren().add(graphDisplay);
         StackPane stackPane = (StackPane) root.lookup("#graph");
@@ -73,6 +75,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 600, 600));
+        stage = primaryStage;
         primaryStage.show();
     }
 

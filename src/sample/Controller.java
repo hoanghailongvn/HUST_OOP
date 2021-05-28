@@ -4,6 +4,7 @@ package sample;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -65,6 +66,15 @@ public class Controller {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
+            //xoa class cu
+            StackPane stackPane = (StackPane) Main.root.lookup("#graph");
+            stackPane.getChildren().remove(Main.layout);
+
+            // create stackPane
+
+            stackPane.setPadding(new Insets(20));
+            stackPane.getChildren().add(Main.graphDisplay);
+            Main.stage.show();
 
             
         }else{
