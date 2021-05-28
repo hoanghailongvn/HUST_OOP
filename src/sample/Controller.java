@@ -5,8 +5,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -40,6 +42,7 @@ public class Controller {
     private MenuItem fileOpen;
     public void fileOpenAction(ActionEvent event){
         GraphDisplay graphDisplay1 = Main.graphDisplay;
+
         System.out.println("Minh Thu");
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
@@ -69,9 +72,11 @@ public class Controller {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
-            AnchorPane  anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
+
+
             Main.stage.show();
 
 
@@ -82,4 +87,38 @@ public class Controller {
         }
     }
 
+    @FXML
+    private TextField inputBegin;
+    public void inputBeginAction(ActionEvent event){
+        String text = inputBegin.getText();
+        System.out.println(text);
+    }
+
+    @FXML
+    private TextField inputEnd;
+    public void inputEndAction(ActionEvent event){
+        String text1 = inputEnd.getText();
+        System.out.println(text1);
+    }
+    @FXML
+    private Button btnStart;
+    public void btnStartAction(ActionEvent event){
+
+    }
+    @FXML
+    private Button btnStop;
+    public void btnStopAction(ActionEvent event){
+
+    }
+    @FXML
+    private Button btnNext;
+    public void btnNextAction(ActionEvent event){
+
+    }
+
+    @FXML
+    private Button btnBack;
+    public void btnBackAction(ActionEvent event){
+
+    }
 }
