@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
@@ -25,7 +26,7 @@ public class GraphDisplay<V, E> extends Region {
 	public V end;
 	boolean situation;
 	List<List<V>> allPath;
-	public ArrayList<String> passedVertex;
+	public ArrayList<V> passedVertex;
 	public int count;
 	/**
 	 * The default side size for the diagram
@@ -191,6 +192,13 @@ public class GraphDisplay<V, E> extends Region {
 	// return 1 if graph contain both start and end
 	// return 0 otherwise
 	public int render(V start, V end) {
+		if(Main.g == null) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setHeaderText("Open file first");
+			alert.show();
+			return -1;
+		}
 		Set<V> keys = produceLabels().keySet();
 		if(keys.contains(start) && keys.contains(end)){
 			this.start = start;
@@ -199,21 +207,40 @@ public class GraphDisplay<V, E> extends Region {
 			this.lastShapeClicked = this.nodes.get(start);
 			this.lastVertexClicked = start;
 			this.allPath = this.findALlPaths(this.start, this.end);
+			this.passedVertex = new ArrayList<>();
+			this.passedVertex.add(start);
+			this.count = 1;
+
+			if (this.adj(this.allPath, start).size() == 0) {
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setTitle("Path not found");
+				alert.setHeaderText("Not found");
+				StringBuilder sbuf = new StringBuilder();
+				Formatter fmt = new Formatter(sbuf);
+				fmt.format("Not found path from %s to %s", start, end);
+				alert.setContentText(sbuf.toString());
+				alert.show();
+				return -1;
+			}
 
 			this.setElements();
 
-			actionOnClick_2.execute(this, start);
-			customActionOnClick_2.accept(start, this.nodes.get(start));
 			this.getNodes().get(start).setFill(Color.RED);
 			this.getNodes().get(end).setFill(Color.RED);
+			actionOnClick_2.execute(this, start);
+			customActionOnClick_2.accept(start, this.nodes.get(start));
 			return 0;
 		} else {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Key not existed");
+			alert.setHeaderText("Key not existed");
+			alert.setContentText("Key not existed");
+			alert.show();
 			return -1;
 		}
 	}
 
 	public void setElements(){
-//		System.out.println(this.getNodes().get(this.start).getFill());
 		getChildren().clear();
 		if(nodeSupplier != null) {
 			getChildren().addAll(produceVertices().values());
@@ -259,6 +286,12 @@ public class GraphDisplay<V, E> extends Region {
 										if (lastShapeClicked != null)
 											customActionOnClickReset_2.execute(this, lastVertexClicked);
 										actionOnClick_2.execute(this, clicked);
+
+										if(this.count < this.passedVertex.size()) {
+											this.passedVertex.subList(this.count, this.passedVertex.size()).clear();
+										}
+										this.count += 1;
+										this.passedVertex.add(clicked);
 									}
 								}
 								if (customActionOnClick_2 != null) {
@@ -268,6 +301,13 @@ public class GraphDisplay<V, E> extends Region {
 								}
 								lastShapeClicked = shape.equals(lastShapeClicked) ? null : shape; //if a reset happened in this click, also set lastShapeClicked to null
 								lastVertexClicked = clicked;
+							}
+
+							if (clicked.equals(this.end)) {
+								Alert alert = new Alert(Alert.AlertType.INFORMATION);
+								alert.setTitle("Ok");
+								alert.setHeaderText("Ve dich");
+								alert.show();
 							}
 						});
 					}

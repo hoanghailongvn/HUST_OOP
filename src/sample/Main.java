@@ -60,22 +60,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-
-//        graphDisplay.render("1", "7");
         root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-        primaryStage.setTitle("GraphFX usage example");
-//        layout = new StackPane();
-//        layout.setPadding(new Insets(20));
-//        layout.getChildren().add(graphDisplay);
-//        AnchorPane AnchorPane = (AnchorPane) root.lookup("#graphShow");
-//        AnchorPane.getChildren().add(layout);
-
-        //------------------------------------------------------------------------------------------------------------
-
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setTitle("My Project");
+        primaryStage.setScene(new Scene(root, 1300, 700));
         stage = primaryStage;
         primaryStage.show();
     }
