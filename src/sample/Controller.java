@@ -87,18 +87,20 @@ public class Controller {
         }
     }
 
+    public static String textBegin;
+    public static String textEnd;
     @FXML
     private TextField inputBegin;
     public void inputBeginAction(ActionEvent event){
-        String text = inputBegin.getText();
-        System.out.println(text);
+        textBegin = inputBegin.getText();
+        System.out.println(textBegin);
     }
 
     @FXML
     private TextField inputEnd;
     public void inputEndAction(ActionEvent event){
-        String text1 = inputEnd.getText();
-        System.out.println(text1);
+        textEnd = inputEnd.getText();
+        System.out.println(textEnd);
     }
     @FXML
     private Button btnStart;
