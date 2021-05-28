@@ -57,7 +57,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        readGraph("C:\\Users\\hoang\\IdeaProjects\\untitled\\src\\sample\\input.txt");
+        readGraph("/Users/minhthu/Documents/OOP/untitled/out/production/untitled/sample/input.txt");
 
         GraphDisplay<String, DefaultEdge> graphDisplay = (new GraphDisplay<>(Main.g))
                 .size(400) //khoảng cách giữa các đỉnh
@@ -83,22 +83,23 @@ public class Main extends Application {
                 })
                 .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
         graphDisplay.render();
-        graphDisplay.render("1", "7");
+//        graphDisplay.render("1", "7");
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         primaryStage.setTitle("GraphFX usage example");
         StackPane layout = new StackPane();
-        layout.setPadding(new Insets(50));
+        layout.setPadding(new Insets(20));
         layout.getChildren().add(graphDisplay);
-        primaryStage.setScene(new Scene(layout, 1200, 600));
-        primaryStage.show();
+        StackPane stackPane = (StackPane) root.lookup("#graph");
+        stackPane.getChildren().add(layout);
+
 
 
         //------------------------------------------------------------------------------------------------------------
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//
-//        primaryStage.show();
+
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.show();
     }
 
 

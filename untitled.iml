@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="javafx-fxml">
@@ -25,5 +25,6 @@
     </orderEntry>
     <orderEntry type="library" name="org.jgrapht:jgrapht-core:1.5.1" level="project" />
     <orderEntry type="library" name="org.jheaps:jheaps:0.13" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
