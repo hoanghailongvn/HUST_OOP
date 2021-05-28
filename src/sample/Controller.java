@@ -42,8 +42,11 @@ public class Controller implements Initializable {
     @FXML
     private TextArea historicalPath;
 
+
     @FXML
     private TextArea allPath;
+
+
 
     @FXML
     private MenuItem fileOpen;
@@ -169,6 +172,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        historicalPath.setText("abc");
+
     }
 }

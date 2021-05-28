@@ -57,6 +57,7 @@ public class GraphDisplay<V, E> extends Region {
 	public ActionOnClick actionOnClick_2;
 	public BiConsumer<V, Shape> customActionOnClick_2;
 	public ActionOnClick customActionOnClickReset_2;
+	public static String test = "";
 
 	public GraphDisplay(Graph<V, E> graph) {
 		this.graph = graph;
@@ -239,6 +240,7 @@ public class GraphDisplay<V, E> extends Region {
 			alert.show();
 			return -1;
 		}
+
 	}
 
 	public void setElements(){
@@ -294,7 +296,9 @@ public class GraphDisplay<V, E> extends Region {
 										this.count += 1;
 										this.passedVertex.add(clicked);
 //										System.out.println(this.passedVertex.subList(0, this.count));
-										Controller.setAllPath(this.passedVertex.subList(0, this.count).toString());
+										test += this.passedVertex.subList(0, this.count).toString();
+										test += "\n";
+										 Main.textArea.setText(test);
 									}
 								}
 								if (customActionOnClick_2 != null) {
