@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,6 +39,8 @@ public class Controller {
     @FXML
     private MenuItem fileOpen;
     public void fileOpenAction(ActionEvent event){
+        GraphDisplay graphDisplay1 = Main.graphDisplay;
+        System.out.println("Minh Thu");
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null){
@@ -56,7 +59,7 @@ public class Controller {
                     })
                     .withActionOnClick(ActionOnClick.MY_ACTION)
                     .withCustomActionOnClick((character, shape) -> {
-                        System.out.println(character);
+//                        System.out.println(character);
                         shape.setFill(Color.YELLOW);
                     })
                     .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))
@@ -66,15 +69,11 @@ public class Controller {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
-            //xoa class cu
-            StackPane stackPane = (StackPane) Main.root.lookup("#graph");
-            stackPane.getChildren().remove(Main.layout);
-
-            // create stackPane
-
-            stackPane.setPadding(new Insets(20));
-            stackPane.getChildren().add(Main.graphDisplay);
+            AnchorPane  anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            anchorPane.getChildren().remove(graphDisplay1);
+            anchorPane.getChildren().add(Main.graphDisplay);
             Main.stage.show();
+
 
             
         }else{

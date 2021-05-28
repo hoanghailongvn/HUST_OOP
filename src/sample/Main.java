@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.application.Application;
@@ -65,11 +66,11 @@ public class Main extends Application {
         root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         primaryStage.setTitle("GraphFX usage example");
-        layout = new StackPane();
-        layout.setPadding(new Insets(20));
-        layout.getChildren().add(graphDisplay);
-        StackPane stackPane = (StackPane) root.lookup("#graph");
-        stackPane.getChildren().add(layout);
+//        layout = new StackPane();
+//        layout.setPadding(new Insets(20));
+//        layout.getChildren().add(graphDisplay);
+//        AnchorPane AnchorPane = (AnchorPane) root.lookup("#graphShow");
+//        AnchorPane.getChildren().add(layout);
 
         //------------------------------------------------------------------------------------------------------------
 
