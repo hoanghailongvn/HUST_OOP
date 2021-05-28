@@ -92,20 +92,21 @@ public class Controller {
     @FXML
     private TextField inputBegin;
     public void inputBeginAction(ActionEvent event){
-        textBegin = inputBegin.getText();
-        System.out.println(textBegin);
+
     }
 
     @FXML
     private TextField inputEnd;
     public void inputEndAction(ActionEvent event){
-        textEnd = inputEnd.getText();
-        System.out.println(textEnd);
+
     }
     @FXML
     private Button btnStart;
     public void btnStartAction(ActionEvent event){
-
+        textEnd = inputEnd.getText();
+        textBegin = inputBegin.getText();
+        System.out.println(textBegin);
+        System.out.println(textEnd);
     }
     @FXML
     private Button btnStop;

@@ -78,7 +78,7 @@
             </HBox>
             <HBox layoutX="14.0" layoutY="162.0" prefHeight="30.0" prefWidth="170.0" spacing="30.0">
                <children>
-                  <Button fx:id="btnStart" mnemonicParsing="false" text="Graph" />
+                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#btnStartAction" text="Graph" />
                   <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopAction" text="Button" />
                </children>
             </HBox>
