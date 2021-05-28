@@ -25,15 +25,15 @@ import java.util.Scanner;
 
 public class Main extends Application {
     public static Graph<String, DefaultEdge> g = null;
+    public static GraphDisplay<String, DefaultEdge> graphDisplay = new GraphDisplay<>(g);
 
-    public static int readGraph(String path) {
+    public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
         // return -1 nếu không tìm thấy file
         Main.g = new DefaultDirectedGraph<>(DefaultEdge.class);
         try {
-            File myObj = new File(path);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(path);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 data = data.strip();
@@ -57,32 +57,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        readGraph("/Users/minhthu/Documents/OOP/untitled/out/production/untitled/sample/input.txt");
 
-        GraphDisplay<String, DefaultEdge> graphDisplay = (new GraphDisplay<>(Main.g))
-                .size(400) //khoảng cách giữa các đỉnh
-                .algorithm(new FRLayoutAlgorithm2D<>())
-//				.vertices(character -> new Circle(20, Character.isDigit(character) ? Color.RED : Color.BLUE))
-                .vertices(character -> new Circle(15, Color.BLUE))
-                .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
-                .edges(true, (edge, path) -> {
-                    path.setFill(Color.DARKBLUE);
-                    path.getStrokeDashArray().addAll(20., 0.);
-                    path.setStrokeWidth(2);
-                    return path;
-                })
-                .withActionOnClick(ActionOnClick.MY_ACTION)
-                .withCustomActionOnClick((character, shape) -> {
-                    System.out.println(character);
-                    shape.setFill(Color.YELLOW);
-                })
-                .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))
-                .withActionOnClick_2(ActionOnClick.MY_ACTION_2)
-                .withCustomActionOnClick_2((character, shape) -> {
-                    shape.setFill(Color.YELLOW);
-                })
-                .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
-        graphDisplay.render();
+
 //        graphDisplay.render("1", "7");
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
@@ -92,8 +68,6 @@ public class Main extends Application {
         layout.getChildren().add(graphDisplay);
         StackPane stackPane = (StackPane) root.lookup("#graph");
         stackPane.getChildren().add(layout);
-
-
 
         //------------------------------------------------------------------------------------------------------------
 
