@@ -40,8 +40,6 @@ public class Controller {
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null){
-            System.out.println(selectedFile.getAbsolutePath());
-        }else{
             Main.readGraph(selectedFile);
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
@@ -68,6 +66,9 @@ public class Controller {
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
 
+            
+        }else{
+            System.out.println("File is not valid");
 
         }
     }
