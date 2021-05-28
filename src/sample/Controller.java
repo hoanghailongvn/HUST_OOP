@@ -146,6 +146,8 @@ public class Controller {
                     Main.graphDisplay.nodes.get(previous_vertex));
             Main.graphDisplay.lastVertexClicked = previous_vertex;
             Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
+
+            System.out.println(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count));
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Stop");
