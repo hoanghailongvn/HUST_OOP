@@ -77,6 +77,7 @@ public class Main extends Application {
 
         stage = primaryStage;
         primaryStage.show();
+
     }
 
 

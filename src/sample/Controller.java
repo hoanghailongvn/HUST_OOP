@@ -37,6 +37,8 @@ public class Controller {
 
     @FXML
     private TextArea historicalPath;
+
+
     @FXML
     private  TextArea allPath;
 
@@ -92,6 +94,7 @@ public class Controller {
 
     public static String textBegin;
     public static String textEnd;
+
     @FXML
     private TextField inputBegin;
     public void inputBeginAction(ActionEvent event){
@@ -109,8 +112,8 @@ public class Controller {
         textEnd = inputEnd.getText();
         textBegin = inputBegin.getText();
         Main.graphDisplay.render(textBegin, textEnd);
-        historicalPath.setText("a\nb");
-        allPath.setText("x\ny");
+
+
     }
     @FXML
     private Button btnStop;
