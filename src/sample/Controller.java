@@ -43,7 +43,7 @@ public class Controller implements Initializable {
     public static String a;
 
     @FXML
-    private  TextArea allPath;
+    public static TextArea allPath;
 
     @FXML
     private MenuItem fileOpen;

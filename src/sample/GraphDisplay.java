@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
@@ -292,7 +293,8 @@ public class GraphDisplay<V, E> extends Region {
 										}
 										this.count += 1;
 										this.passedVertex.add(clicked);
-										System.out.println(this.passedVertex.subList(0, this.count));
+//										System.out.println(this.passedVertex.subList(0, this.count));
+//										Controller.allPath.setText(this.passedVertex.subList(0, this.count).toString());
 									}
 								}
 								if (customActionOnClick_2 != null) {
