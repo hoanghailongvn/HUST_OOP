@@ -36,6 +36,11 @@ public class Controller {
     }
 
     @FXML
+    private TextArea historicalPath;
+    @FXML
+    private  TextArea allPath;
+
+    @FXML
     private MenuItem fileOpen;
     public void fileOpenAction(ActionEvent event){
         GraphDisplay graphDisplay1 = Main.graphDisplay;
@@ -69,6 +74,7 @@ public class Controller {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
+
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
@@ -103,6 +109,8 @@ public class Controller {
         textEnd = inputEnd.getText();
         textBegin = inputBegin.getText();
         Main.graphDisplay.render(textBegin, textEnd);
+        historicalPath.setText("a\nb");
+        allPath.setText("x\ny");
     }
     @FXML
     private Button btnStop;
