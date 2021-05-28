@@ -292,6 +292,7 @@ public class GraphDisplay<V, E> extends Region {
 										}
 										this.count += 1;
 										this.passedVertex.add(clicked);
+										System.out.println(this.passedVertex.subList(0, this.count));
 									}
 								}
 								if (customActionOnClick_2 != null) {
