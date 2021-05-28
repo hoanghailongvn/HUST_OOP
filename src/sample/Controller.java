@@ -18,6 +18,7 @@ import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -40,17 +41,15 @@ public class Controller implements Initializable {
 
     @FXML
     private TextArea historicalPath;
-    public static String a;
 
     @FXML
-    public static TextArea allPath;
+    private TextArea allPath;
 
     @FXML
     private MenuItem fileOpen;
     public void fileOpenAction(ActionEvent event){
         GraphDisplay graphDisplay1 = Main.graphDisplay;
 
-        System.out.println("Minh Thu");
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null){
@@ -58,7 +57,6 @@ public class Controller implements Initializable {
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
-//				.vertices(character -> new Circle(20, Character.isDigit(character) ? Color.RED : Color.BLUE))
                     .vertices(character -> new Circle(15, Color.BLUE))
                     .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
                     .edges(true, (edge, path) -> {
@@ -69,7 +67,6 @@ public class Controller implements Initializable {
                     })
                     .withActionOnClick(ActionOnClick.MY_ACTION)
                     .withCustomActionOnClick((character, shape) -> {
-//                        System.out.println(character);
                         shape.setFill(Color.YELLOW);
                     })
                     .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))

@@ -294,7 +294,7 @@ public class GraphDisplay<V, E> extends Region {
 										this.count += 1;
 										this.passedVertex.add(clicked);
 //										System.out.println(this.passedVertex.subList(0, this.count));
-//										Controller.allPath.setText(this.passedVertex.subList(0, this.count).toString());
+										Controller.setAllPath(this.passedVertex.subList(0, this.count).toString());
 									}
 								}
 								if (customActionOnClick_2 != null) {
