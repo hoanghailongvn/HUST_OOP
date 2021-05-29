@@ -12,8 +12,8 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -24,6 +24,7 @@ public class Main extends Application {
     public static Stage stage;
     public static TextArea historicalPath;
     public static TextArea allPath;
+
     public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
@@ -49,6 +50,29 @@ public class Main extends Application {
             return -1;
         }
         return 0;
+    }
+
+
+    public static void writeFileAdd(File path, String addEdgeFromInput, String addVertexFromInput){
+        try{
+           FileWriter fw = new FileWriter(path,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            if(addEdgeFromInput.trim() != null && addEdgeFromInput != ""){
+                bw.write("\n" + addEdgeFromInput);
+            }
+           if(addVertexFromInput.trim() != null && addVertexFromInput != ""){
+
+                  bw.write( "\n" + addVertexFromInput);
+           }
+           bw.close();
+
+        }catch(FileNotFoundException e){
+           e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

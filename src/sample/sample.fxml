@@ -20,7 +20,7 @@
    <children>
       <AnchorPane layoutX="482.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
          <children>
-            <Label layoutX="66.0" layoutY="14.0" text="History Path">
+            <Label layoutX="126.0" layoutY="14.0" text="My way">
                <font>
                   <Font size="20.0" />
                </font>
@@ -104,14 +104,22 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <Button fx:id="exportImage" layoutX="51.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnExportImage" text="Export Image" />
+            <Button fx:id="exportImage" layoutX="51.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnExportImage" text="Export Image" />
+            <TextField fx:id="addEdgeStart" layoutX="88.0" layoutY="315.0" onAction="#inputAddEdge" style="-fx-max-width: 40;" />
+            <TextField fx:id="addVertex" layoutX="100.0" layoutY="360.0" onAction="#inputAddVertex" style="-fx-max-width: 80;" />
+            <Button fx:id="submitVertex" layoutX="67.0" layoutY="410.0" mnemonicParsing="false" onAction="#addSubmitVertex" text="ADD" />
+            <Label layoutX="10.0" layoutY="307.0" text="Add  Egde" />
+            <Label layoutX="8.0" layoutY="364.0" text="Add Vertex" />
+            <TextField fx:id="addEdgeEnd" layoutX="160.0" layoutY="315.0" style="-fx-max-width: 40;" />
+            <Label layoutX="95.0" layoutY="290.0" text="Start" />
+            <Label layoutX="169.0" layoutY="290.0" text="End" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="222.0" layoutY="387.0" prefHeight="110.0" prefWidth="435.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="MY WAY" textFill="#d2b7b7">
+            <Label layoutX="34.0" layoutY="42.0" text="History Path" textFill="#d2b7b7">
                <font>
-                  <Font size="14.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
             <TextArea fx:id="historicalPath" editable="false" layoutX="144.0" layoutY="-77.0" prefHeight="130.0" prefWidth="200.0" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
