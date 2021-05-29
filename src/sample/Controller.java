@@ -48,12 +48,14 @@ public class Controller implements Initializable {
 
     @FXML
     private MenuItem fileOpen;
+    public static File select;
     public void fileOpenAction(ActionEvent event){
         GraphDisplay graphDisplay1 = Main.graphDisplay;
-
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null){
+            select = selectedFile;
+            //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(selectedFile);
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
@@ -174,4 +176,76 @@ public class Controller implements Initializable {
     public void btnExportImage(){
 
     }
+
+    public static String addEdgeStartText;
+    public static String addEdgeEndText;
+    public static String addVertexText;
+
+    @FXML
+    private TextField addEdgeStart;
+    public void inputAddEdge(){
+
+    }
+
+    @FXML
+    private TextField addEdgeEnd;
+
+    @FXML
+    private TextField addVertex;
+    public  void inputAddVertex(){
+
+    }
+
+    @FXML
+    private  Button submitVertex;
+    public void addSubmitVertex(){
+        addEdgeStartText = addEdgeStart.getText();
+        addEdgeEndText = addEdgeEnd.getText();
+        addVertexText = addVertex.getText().trim();
+        GraphDisplay graphDisplay1 = Main.graphDisplay;
+        String test = "";
+        if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
+             test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
+            test = test.trim();
+        }
+        Main.writeFileAdd(select, test, addVertexText);
+        if(select != null){
+            //Main.writeFileAdd(selectedFile,"8 5","8");
+            Main.readGraph(select);
+            Main.graphDisplay = (new GraphDisplay<>(Main.g))
+                    .size(400) //khoảng cách giữa các đỉnh
+                    .algorithm(new FRLayoutAlgorithm2D<>())
+                    .vertices(character -> new Circle(15, Color.BLUE))
+                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
+                    .edges(true, (edge, path) -> {
+                        path.setFill(Color.DARKBLUE);
+                        path.getStrokeDashArray().addAll(20., 0.);
+                        path.setStrokeWidth(2);
+                        return path;
+                    })
+                    .withActionOnClick(ActionOnClick.MY_ACTION)
+                    .withCustomActionOnClick((character, shape) -> {
+                        shape.setFill(Color.YELLOW);
+                    })
+                    .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))
+                    .withActionOnClick_2(ActionOnClick.MY_ACTION_2)
+                    .withCustomActionOnClick_2((character, shape) -> {
+                        shape.setFill(Color.YELLOW);
+                    })
+                    .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
+            Main.graphDisplay.render();
+
+            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            anchorPane.getChildren().remove(graphDisplay1);
+            anchorPane.getChildren().add(Main.graphDisplay);
+            Main.stage.show();
+
+        }else{
+            System.out.println("File is not valid");
+
+        }
+
+    }
+
+
 }
