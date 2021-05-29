@@ -1,0 +1,14 @@
+strict digraph myGraph {
+1 -> 2
+ -> 3
+2 -> 3
+ -> 4
+5 -> 3
+ -> 2
+1 -> 6
+ -> 5 [color = red]
+ -> 4 [color = red]
+ -> 2
+4 -> 2
+5 -> 1 [color = red]
+}

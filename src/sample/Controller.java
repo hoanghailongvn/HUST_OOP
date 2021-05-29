@@ -123,6 +123,13 @@ public class Controller implements Initializable {
     @FXML
     private Button btnNext;
     public void btnNextAction(ActionEvent event){
+        if(Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
         if(Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
@@ -146,6 +153,13 @@ public class Controller implements Initializable {
     @FXML
     private Button btnBack;
     public void btnBackAction(ActionEvent event){
+        if(Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
         if(Main.graphDisplay.count > 1) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
@@ -174,7 +188,18 @@ public class Controller implements Initializable {
     @FXML
     private Button exportImage;
     public void btnExportImage(){
-
+        if(Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
+        Main.export(Main.graphDisplay);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ok");
+        alert.setHeaderText("Export success!");
+        alert.show();
     }
 
     public static String addEdgeStartText;

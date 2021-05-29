@@ -56,10 +56,10 @@ public class Main extends Application {
     public static void writeDotFile(List<List<String>> g_adj, File path){
         try {
             FileWriter fileWriter = new FileWriter(path);
-            fileWriter.write("digraph myGraph {\n");
+            fileWriter.write("strict digraph myGraph {\n");
             for(List<String> line: Main.g_adj) {
-                fileWriter.write(line.get(0));
                 for(int i = 1; i < line.size(); i++) {
+                    fileWriter.write(line.get(0));
                     fileWriter.write(" -> ");
                     fileWriter.write(line.get(i));
                     fileWriter.write("\n");
@@ -79,10 +79,10 @@ public class Main extends Application {
             for(int i = 0; i < red.size() - 1; i++) {
                 listPair.add(new Pair<>(red.get(i), red.get(i+1)));
             }
-            fileWriter.write("digraph myGraph {\n");
+            fileWriter.write("strict digraph myGraph {\n");
             for(List<String> line: Main.g_adj) {
-                fileWriter.write(line.get(0));
                 for(int i = 1; i < line.size(); i++) {
+                    fileWriter.write(line.get(0));
                     fileWriter.write(" -> ");
                     fileWriter.write(line.get(i));
                     if(listPair.contains(new Pair<>(line.get(0), line.get(i)))) {
@@ -110,11 +110,11 @@ public class Main extends Application {
     public static File pathDot = new File(System.getProperty("user.dir") + File.separator +
             "src" + File.separator +
             "output" + File.separator +
-            "dot" + File.separator);
+            "dot");
     public static File pathPng = new File(System.getProperty("user.dir") + File.separator +
             "src" + File.separator +
             "output" + File.separator +
-            "png" + File.separator);
+            "png");
     public static void export(GraphDisplay<String, DefaultEdge> graphDisplay) {
         File[] fileDot = Main.pathDot.listFiles();
         File[] filePng = Main.pathPng.listFiles();
@@ -126,13 +126,16 @@ public class Main extends Application {
             file.delete();
         }
 
-        writeDotFile(Main.g_adj, new File(Main.pathDot + "all.dot"));
-        writePngFile(new File(Main.pathDot + "all.dot"), new File(Main.pathPng + "all.png"));
+        writeDotFile(Main.g_adj, new File(Main.pathDot + File.separator + "all.dot"));
+        writePngFile(new File(Main.pathDot  + File.separator + "all.dot"),
+                new File(Main.pathPng + File.separator + "all.png"));
         if(graphDisplay.situation) {
             for (int i = 0; i < graphDisplay.allPath.size(); i++) {
                 String name = graphDisplay.allPath.get(i).toString().replace(", ", "_");
-                writeDotFile(Main.g_adj, new File(Main.pathDot + name + ".dot"), graphDisplay.allPath.get(i));
-                writePngFile(new File(Main.pathDot + name + ".dot"), new File(Main.pathPng + name + ".png"));
+                writeDotFile(Main.g_adj, new File(Main.pathDot + File.separator + name + ".dot"),
+                        graphDisplay.allPath.get(i));
+                writePngFile(new File(Main.pathDot + File.separator + name + ".dot"),
+                        new File(Main.pathPng + File.separator + name + ".png"));
             }
         }
     }
