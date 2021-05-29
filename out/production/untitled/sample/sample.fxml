@@ -25,7 +25,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextArea fx:id="historicalPath" editable="false" layoutX="14.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+            <TextArea fx:id="allPath" editable="false" layoutX="14.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
          </children></AnchorPane>
       <MenuBar layoutX="2.0" layoutY="-119.0" prefHeight="28.0" prefWidth="949.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -106,7 +106,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="allPath" editable="false" layoutX="144.0" layoutY="-77.0" prefHeight="130.0" prefWidth="200.0" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TextArea fx:id="historicalPath" editable="false" layoutX="144.0" layoutY="-77.0" prefHeight="130.0" prefWidth="200.0" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

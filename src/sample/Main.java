@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.layout.StackPane;
@@ -13,7 +12,6 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import sample.Edge2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -24,7 +22,8 @@ public class Main extends Application {
     public static StackPane layout;
     public static Parent root;
     public static Stage stage;
-    public static TextArea textArea;
+    public static TextArea historicalPath;
+    public static TextArea allPath;
     public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
@@ -59,7 +58,8 @@ public class Main extends Application {
         primaryStage.setTitle("My Project");
         primaryStage.setScene(new Scene(root, 1300, 700));
         stage = primaryStage;
-        textArea = (TextArea) root.lookup("#historicalPath") ;
+        historicalPath = (TextArea) root.lookup("#historicalPath") ;
+        allPath = (TextArea) root.lookup("#allPath");
 
         primaryStage.show();
 

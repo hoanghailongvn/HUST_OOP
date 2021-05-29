@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.Control;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
@@ -57,7 +56,6 @@ public class GraphDisplay<V, E> extends Region {
 	public ActionOnClick actionOnClick_2;
 	public BiConsumer<V, Shape> customActionOnClick_2;
 	public ActionOnClick customActionOnClickReset_2;
-	public static String test = "";
 
 	public GraphDisplay(Graph<V, E> graph) {
 		this.graph = graph;
@@ -231,6 +229,17 @@ public class GraphDisplay<V, E> extends Region {
 			this.getNodes().get(end).setFill(Color.RED);
 			actionOnClick_2.execute(this, start);
 			customActionOnClick_2.accept(start, this.nodes.get(start));
+
+			StringBuilder output_allPath = new StringBuilder();
+			for(List<V> temp: this.allPath) {
+				output_allPath.append(temp.get(0));
+				for(int i = 1; i < temp.size(); i++) {
+					output_allPath.append(" -> ");
+					output_allPath.append(temp.get(i));
+				}
+				output_allPath.append("\n");
+			}
+			Main.allPath.setText(output_allPath.toString());
 			return 0;
 		} else {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -295,10 +304,7 @@ public class GraphDisplay<V, E> extends Region {
 										}
 										this.count += 1;
 										this.passedVertex.add(clicked);
-//										System.out.println(this.passedVertex.subList(0, this.count));
-										test += this.passedVertex.subList(0, this.count).toString();
-										test += "\n";
-										 Main.textArea.setText(test);
+										Main.historicalPath.setText(this.passedVertex.subList(0, this.count).toString());
 									}
 								}
 								if (customActionOnClick_2 != null) {

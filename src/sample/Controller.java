@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -18,7 +17,6 @@ import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -83,11 +81,7 @@ public class Controller implements Initializable {
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
-
-
             Main.stage.show();
-
-
             
         }else{
             System.out.println("File is not valid");
@@ -138,7 +132,7 @@ public class Controller implements Initializable {
             Main.graphDisplay.lastVertexClicked = previous_vertex;
             Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
 
-            System.out.println(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count));
+            Main.historicalPath.setText(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count).toString());
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Stop");
@@ -161,7 +155,7 @@ public class Controller implements Initializable {
             Main.graphDisplay.lastVertexClicked = previous_vertex;
             Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
 
-            System.out.println(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count));
+            Main.historicalPath.setText(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count).toString());
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Stop");
