@@ -220,6 +220,8 @@ public class GraphDisplay<V, E> extends Region {
 				fmt.format("Not found path from %s to %s", start, end);
 				alert.setContentText(sbuf.toString());
 				alert.show();
+				Main.graphDisplay.situation = false;
+				Main.graphDisplay.setElements();
 				return -1;
 			}
 
