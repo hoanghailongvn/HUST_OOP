@@ -16,7 +16,7 @@ strict digraph myGraph {
 6 -> 10
 9 -> 5
 4 -> 11
-2 -> 9
+2 -> 9 [color = red]
 2 -> 4
 2 -> 6
 }

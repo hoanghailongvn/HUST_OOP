@@ -10,11 +10,13 @@ import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
 import org.jgrapht.Graph;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main extends Application {
     public static Graph<String, DefaultEdge> g = null;
@@ -25,6 +27,7 @@ public class Main extends Application {
     public static Stage stage;
     public static TextArea historicalPath;
     public static TextArea allPath;
+    public static Set<String> allEdge = new HashSet<>();
     public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
@@ -144,11 +147,10 @@ public class Main extends Application {
             FileWriter fw = new FileWriter(path,true);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            if(addEdgeFromInput.trim() != null && addEdgeFromInput != ""){
+            if((addEdgeFromInput.trim() != null && addEdgeFromInput != "")){
                 bw.write("\n" + addEdgeFromInput);
             }
-            if(addVertexFromInput.trim() != null && addVertexFromInput != ""){
-
+            if((addVertexFromInput.trim() != null && addVertexFromInput != "") && !allEdge.contains(addVertexFromInput) ){
                 bw.write( "\n" + addVertexFromInput);
             }
             bw.close();
@@ -159,6 +161,11 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    public List<String> getNeighbors (String part)
+    {
+        return Graphs.neighborListOf(Main.g, part);
     }
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -176,6 +183,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }

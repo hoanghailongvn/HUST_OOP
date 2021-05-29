@@ -68,12 +68,12 @@ public class Controller implements Initializable {
                         path.setStrokeWidth(2);
                         return path;
                     })
-                    .withActionOnClick(ActionOnClick.MY_ACTION)
-                    .withCustomActionOnClick((character, shape) -> {
+                    .withActionOnClick(ActionOnClick.MY_ACTION) //khi chưa vào trạng thái tìm đường
+                    .withCustomActionOnClick((character, shape) -> { //khi click vào node đó thì node đó thành màu vàng
                         shape.setFill(Color.YELLOW);
                     })
-                    .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))
-                    .withActionOnClick_2(ActionOnClick.MY_ACTION_2)
+                    .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))  // click lại thì reset về màu xanh
+                    .withActionOnClick_2(ActionOnClick.MY_ACTION_2) // khi vào trạng thái tìm đường
                     .withCustomActionOnClick_2((character, shape) -> {
                         shape.setFill(Color.YELLOW);
                     })
@@ -83,6 +83,7 @@ public class Controller implements Initializable {
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
+            Main.allEdge = Main.g.vertexSet();
             Main.stage.show();
 
         }else{
@@ -170,7 +171,6 @@ public class Controller implements Initializable {
                     Main.graphDisplay.nodes.get(previous_vertex));
             Main.graphDisplay.lastVertexClicked = previous_vertex;
             Main.graphDisplay.lastShapeClicked = Main.graphDisplay.nodes.get(previous_vertex);
-
             Main.historicalPath.setText(Main.graphDisplay.passedVertex.subList(0, Main.graphDisplay.count).toString());
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -227,16 +227,24 @@ public class Controller implements Initializable {
         addEdgeStartText = addEdgeStart.getText();
         addEdgeEndText = addEdgeEnd.getText();
         addVertexText = addVertex.getText().trim();
+
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         String test = "";
         if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
              test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
             test = test.trim();
         }
+        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText)) && !addVertexText.equals(addEdgeEndText) && !addVertexText.equals(addEdgeStartText)){
+            test = "";
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ok");
+            alert.setHeaderText("Đỉnh chưa tồn tại nên không thẻ tạo cạnh");
+            alert.show();
+        }
         Main.writeFileAdd(select, test, addVertexText);
         if(select != null){
-            //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(select);
+            Main.allEdge = Main.g.vertexSet();
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
@@ -259,7 +267,7 @@ public class Controller implements Initializable {
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
-
+            Main.allEdge = Main.g.vertexSet();
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);

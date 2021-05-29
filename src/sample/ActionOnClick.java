@@ -96,6 +96,7 @@ public enum ActionOnClick {
 	MY_ACTION() {
 		@Override
 		<V, E> void execute(GraphDisplay<V, E> graphDisplay, V clicked) {
+			// list những node cần sáng
 			List<Shape> toBeHighlighted = new ArrayList<>();
 			toBeHighlighted.add(graphDisplay.getNodes().get(clicked));
 			toBeHighlighted.add(graphDisplay.getLabels().get(clicked));

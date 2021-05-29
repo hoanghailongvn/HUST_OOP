@@ -191,6 +191,7 @@ public class GraphDisplay<V, E> extends Region {
 
 	// return 1 if graph contain both start and end
 	// return 0 otherwise
+	//public static Set<V> key = produceLabels().keySet();
 	public int render(V start, V end) {
 		if(Main.g == null) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -253,23 +254,25 @@ public class GraphDisplay<V, E> extends Region {
 		}
 
 	}
-
+// hàm để xử lý click vào node thì sẽ ntn
 	public void setElements(){
 		getChildren().clear();
 		if(nodeSupplier != null) {
 			getChildren().addAll(produceVertices().values());
-
 			//click events
 			if (!this.situation) {
+				// trạng thái không tìm đường
 				if(actionOnClick != null || customActionOnClick != null) {
 					for (Shape shape : nodes.values()) {
+						// lấy ra phần tử được click
 						shape.setOnMouseClicked(event -> {
 							V clicked = nodes.entrySet().stream().filter(entry -> entry.getValue().equals(shape)).findAny().orElseThrow().getKey(); //find the vertex represented by this shape. The nodes map contains just one shape for every vertex.
-
 							if (actionOnClick != null) {
 								if (shape.equals(lastShapeClicked)) {
+									// đưa đồ thị về ban đầu
 									actionOnClick.reset(this);
 								} else {
+									//
 									actionOnClick.execute(this, clicked);
 								}
 							}
@@ -289,6 +292,7 @@ public class GraphDisplay<V, E> extends Region {
 					}
 				}
 			} else {
+				// trạng thái tìm đường
 				if(actionOnClick_2 != null || customActionOnClickReset_2 != null) {
 					for (Shape shape: nodes.values()) {
 						shape.setOnMouseClicked(event -> {
