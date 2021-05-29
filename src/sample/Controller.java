@@ -17,6 +17,7 @@ import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -45,15 +46,15 @@ public class Controller implements Initializable {
     private TextArea allPath;
 
 
-
     @FXML
     private MenuItem fileOpen;
     public static File select;
-    public void fileOpenAction(ActionEvent event){
+
+    public void fileOpenAction(ActionEvent event) {
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
-        if(selectedFile != null){
+        if (selectedFile != null) {
             select = selectedFile;
             //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(selectedFile);
@@ -61,7 +62,7 @@ public class Controller implements Initializable {
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
                     .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
+                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
                     .edges(true, (edge, path) -> {
                         path.setFill(Color.DARKBLUE);
                         path.getStrokeDashArray().addAll(20., 0.);
@@ -78,14 +79,15 @@ public class Controller implements Initializable {
                         shape.setFill(Color.YELLOW);
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
+
             Main.graphDisplay.render();
 
-            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
             Main.stage.show();
-            
-        }else{
+
+        } else {
             System.out.println("File is not valid");
 
         }
@@ -96,34 +98,42 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField inputBegin;
-    public void inputBeginAction(ActionEvent event){
+
+    public void inputBeginAction(ActionEvent event) {
 
     }
 
     @FXML
     private TextField inputEnd;
-    public void inputEndAction(ActionEvent event){
+
+    public void inputEndAction(ActionEvent event) {
 
     }
+
     @FXML
     private Button btnStart;
-    public void btnStartAction(ActionEvent event){
+
+    public void btnStartAction(ActionEvent event) {
         textEnd = inputEnd.getText();
         textBegin = inputBegin.getText();
         Main.graphDisplay.render(textBegin, textEnd);
 
 
     }
+
     @FXML
     private Button btnStop;
-    public void btnStopAction(ActionEvent event){
+
+    public void btnStopAction(ActionEvent event) {
         Main.graphDisplay.situation = false;
         Main.graphDisplay.setElements();
     }
+
     @FXML
     private Button btnNext;
-    public void btnNextAction(ActionEvent event){
-        if(Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
+
+    public void btnNextAction(ActionEvent event) {
+        if (Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
             Main.graphDisplay.count += 1;
@@ -145,8 +155,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button btnBack;
-    public void btnBackAction(ActionEvent event){
-        if(Main.graphDisplay.count > 1) {
+
+    public void btnBackAction(ActionEvent event) {
+        if (Main.graphDisplay.count > 1) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
             Main.graphDisplay.count -= 1;
@@ -173,7 +184,8 @@ public class Controller implements Initializable {
 
     @FXML
     private Button exportImage;
-    public void btnExportImage(){
+
+    public void btnExportImage() {
 
     }
 
@@ -183,7 +195,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField addEdgeStart;
-    public void inputAddEdge(){
+
+    public void inputAddEdge() {
 
     }
 
@@ -192,31 +205,33 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField addVertex;
-    public  void inputAddVertex(){
+
+    public void inputAddVertex() {
 
     }
 
     @FXML
-    private  Button submitVertex;
-    public void addSubmitVertex(){
+    private Button submitVertex;
+
+    public void addSubmitVertex() {
         addEdgeStartText = addEdgeStart.getText();
         addEdgeEndText = addEdgeEnd.getText();
         addVertexText = addVertex.getText().trim();
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         String test = "";
-        if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
-             test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
+        if (addEdgeStartText.trim() != null || addEdgeEndText.trim() != null) {
+            test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
             test = test.trim();
         }
         Main.writeFileAdd(select, test, addVertexText);
-        if(select != null){
+        if (select != null) {
             //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(select);
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
                     .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
+                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
                     .edges(true, (edge, path) -> {
                         path.setFill(Color.DARKBLUE);
                         path.getStrokeDashArray().addAll(20., 0.);
@@ -235,15 +250,40 @@ public class Controller implements Initializable {
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
 
-            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
             Main.stage.show();
 
-        }else{
+        } else {
             System.out.println("File is not valid");
-
         }
+
+    }
+    @FXML Menu colorChoose;
+    public void chooseColorVertices(ActionEvent event){
+//        ArrayList<String> listColor = new ArrayList<>();
+//
+//        for(int i = 0; i < colorChoose.getItems().size(); i++){
+//           if( colorChoose.getItems().get(i).getText().equals("RED")){
+//               Main.graphDisplay.vertices(character -> new Circle(15, Color.RED));
+//               Main.graphDisplay.render();
+//               break;
+//           } else if( colorChoose.getItems().get(i).getText().equals("PINK")){
+//                Main.graphDisplay.vertices(character -> new Circle(15, Color.PINK));
+//                Main.graphDisplay.render();
+//                break;
+//            }else if( colorChoose.getItems().get(i).getText().equals("BLUE")){
+//               Main.graphDisplay.vertices(character -> new Circle(15, Color.BLUE));
+//               Main.graphDisplay.render();
+//               break;
+//           }else if( colorChoose.getItems().get(i).getText().equals("GREEN")){
+//               Main.graphDisplay.vertices(character -> new Circle(15, Color.GREEN));
+//               Main.graphDisplay.render();
+//               break;
+//           }
+//        }
+
 
     }
 

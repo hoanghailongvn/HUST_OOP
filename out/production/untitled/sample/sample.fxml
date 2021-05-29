@@ -41,7 +41,14 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <Menu fx:id="colorChoose" mnemonicParsing="false" text="color">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="RED" />
+                        <MenuItem mnemonicParsing="false" text="BLUE" />
+                    <MenuItem mnemonicParsing="false" text="PINK" />
+                        <MenuItem mnemonicParsing="false" text="GREEN" />
+                     </items>
+                  </Menu>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -52,7 +59,7 @@
         </menus>
       </MenuBar>
       <Separator layoutX="216.0" layoutY="26.0" orientation="VERTICAL" prefHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="28.0" />
-      <AnchorPane fx:id="graphShow" layoutX="227.0" layoutY="293.0" prefHeight="99.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="28.0">
+      <AnchorPane fx:id="graphShow" layoutX="227.0" layoutY="293.0" prefHeight="99.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="45.0">
          <padding>
             <Insets bottom="30.0" left="100.0" right="30.0" top="60.0" />
          </padding></AnchorPane>
