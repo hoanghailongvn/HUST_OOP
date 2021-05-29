@@ -168,4 +168,10 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    @FXML
+    private Button exportImage;
+    public void btnExportImage(){
+
+    }
 }
