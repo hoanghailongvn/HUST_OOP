@@ -169,7 +169,6 @@ public class Main extends Application {
         for(File file: filePng) {
             file.delete();
         }
-        System.out.println(Main.g_adj);
         writeDotFile(Main.g_adj, new File(Main.pathDot + File.separator + "all.dot"));
         writePngFile(new File(Main.pathDot  + File.separator + "all.dot"),
                 new File(Main.pathPng + File.separator + "all.png"));
