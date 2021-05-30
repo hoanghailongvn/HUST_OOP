@@ -107,16 +107,31 @@ public class Controller implements Initializable {
             anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(lastMouseX == null || ChronoUnit.MILLIS.between(last, LocalDateTime.now()) > 100)  {
-                        lastMouseX = mouseEvent.getX();
-                        lastMouseY = mouseEvent.getY();
-                        last = LocalDateTime.now();
+                    if(mouseEvent.isControlDown()) {
+                        if (lastMouseY == null) {
+                            lastMouseY = mouseEvent.getX();
+                        } else {
+                            if(mouseEvent.getY() > lastMouseY) {
+                                Main.graphDisplay.setScaleX(Math.min(Main.graphDisplay.getScaleX() + 0.03, 2));
+                                Main.graphDisplay.setScaleY(Math.min(Main.graphDisplay.getScaleY() + 0.03, 2));
+                            } else {
+                                Main.graphDisplay.setScaleX(Math.max(Main.graphDisplay.getScaleX() - 0.03, 0.5));
+                                Main.graphDisplay.setScaleY(Math.max(Main.graphDisplay.getScaleY() - 0.03, 0.5));
+                            }
+                            lastMouseY = mouseEvent.getY();
+                        }
                     } else {
-                        Main.graphDisplay.setLayoutX(Main.graphDisplay.getLayoutX() + mouseEvent.getX() - lastMouseX);
-                        Main.graphDisplay.setLayoutY(Main.graphDisplay.getLayoutY() + mouseEvent.getY() - lastMouseY);
-                        lastMouseX = mouseEvent.getX();
-                        lastMouseY = mouseEvent.getY();
-                        last = LocalDateTime.now();
+                        if (lastMouseX == null || ChronoUnit.MILLIS.between(last, LocalDateTime.now()) > 100) {
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        } else {
+                            Main.graphDisplay.setLayoutX(Main.graphDisplay.getLayoutX() + mouseEvent.getX() - lastMouseX);
+                            Main.graphDisplay.setLayoutY(Main.graphDisplay.getLayoutY() + mouseEvent.getY() - lastMouseY);
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        }
                     }
                 }
             });
