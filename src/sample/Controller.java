@@ -20,6 +20,7 @@ import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -45,9 +46,7 @@ public class Controller implements Initializable {
            Platform.exit();
            System.exit(0);
         }
-
     }
-
     @FXML
     private TextArea historicalPath;
 
@@ -254,16 +253,30 @@ public class Controller implements Initializable {
 
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         String test = "";
+        System.out.println(addVertexText);
         if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
              test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
              test = test.trim();
         }
-        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText)) && (!addVertexText.equals(addEdgeEndText) && !addVertexText.equals(addEdgeStartText))){
-            test = "";
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Ok");
-            alert.setHeaderText("Đỉnh chưa tồn tại nên không thẻ tạo cạnh");
-            alert.show();
+        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText))){
+            if(!addEdgeEndText.equals(addVertexText) && !addEdgeStartText.equals(addVertexText)){
+                test = "";
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ok");
+                alert.setHeaderText("Đỉnh chưa tồn tại nên không thẻ tạo cạnh");
+                alert.show();
+            }
+
+        }
+        if(Main.allEdge.contains(addEdgeStartText)){
+            List<String> vertexes = Main.getNeighbors(addEdgeStartText);
+            if(vertexes.contains(addEdgeEndText)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ok");
+                alert.setHeaderText("Canh da ton tai");
+                alert.show();
+                test = "";
+            }
         }
         if(Main.allEdge.contains(addVertexText)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -272,6 +285,7 @@ public class Controller implements Initializable {
             alert.show();
             addVertexText = "";
         }
+
         Main.writeFileAdd(select, test, addVertexText);
         if(select != null){
             Main.readGraph(select);

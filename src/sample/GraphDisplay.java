@@ -225,6 +225,8 @@ public class GraphDisplay<V, E> extends Region {
                 alert.show();
                 Main.graphDisplay.situation = false;
                 Main.graphDisplay.setElements();
+                Main.historicalPath.setText("");
+                Main.allPath.setText("");
                 return -1;
             }
 
