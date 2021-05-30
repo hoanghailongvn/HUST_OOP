@@ -18,14 +18,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <AnchorPane layoutX="482.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+      <AnchorPane layoutX="482.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="28.0">
          <children>
-            <Label layoutX="126.0" layoutY="14.0" text="My way">
+            <Label layoutX="126.0" layoutY="14.0" text="My Way">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextArea fx:id="allPath" editable="false" layoutX="14.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+            <TextArea fx:id="allPath" editable="false" layoutX="14.0" layoutY="90.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
          </children></AnchorPane>
       <MenuBar layoutX="2.0" layoutY="-119.0" prefHeight="28.0" prefWidth="949.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -63,23 +63,23 @@
       <Separator layoutX="216.0" layoutY="26.0" orientation="VERTICAL" prefHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="28.0" />
       <AnchorPane layoutX="14.0" layoutY="43.0" prefHeight="173.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
          <children>
-            <Label layoutX="8.0" layoutY="49.0" text="Start Vertex">
+            <Label layoutX="14.0" layoutY="48.0" text="Start Vertex">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="inputBegin" layoutX="100.0" layoutY="44.0" onAction="#inputBeginAction" style="-fx-max-width: 50;" AnchorPane.topAnchor="44.0">
+            <TextField fx:id="inputBegin" layoutX="100.0" layoutY="44.0" maxWidth="109.0" onAction="#inputBeginAction" prefHeight="26.0" prefWidth="109.0" style="-fx-max-width: 80;" AnchorPane.topAnchor="44.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <Label layoutX="8.0" layoutY="88.0" text="End Vertex">
+            <Label layoutX="14.0" layoutY="87.0" text="End Vertex">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="inputEnd" layoutX="100.0" layoutY="84.0" onAction="#inputEndAction" style="-fx-max-width: 50;" />
-            <HBox layoutX="50.0" layoutY="210.0" prefHeight="20.0" prefWidth="90.0" spacing="10.0">
+            <TextField fx:id="inputEnd" layoutX="100.0" layoutY="84.0" onAction="#inputEndAction" style="-fx-max-width: 80;" />
+            <HBox layoutX="51.0" layoutY="186.0" prefHeight="20.0" prefWidth="90.0" spacing="10.0">
                <children>
                   <Button fx:id="btnBack" mnemonicParsing="false" onAction="#btnBackAction" prefHeight="32.0" prefWidth="17.0">
                      <graphic>
@@ -101,38 +101,50 @@
                   </Button>
                </children>
             </HBox>
-            <HBox layoutX="33.0" layoutY="165.0" prefHeight="30.0" prefWidth="150.0" spacing="30.0">
+            <HBox layoutX="25.0" layoutY="132.0" prefHeight="30.0" prefWidth="150.0" spacing="30.0">
                <children>
-                  <Button fx:id="btnStart" lineSpacing="10.0" mnemonicParsing="false" onAction="#btnStartAction" text="Start" />
+                  <Button fx:id="btnStart" lineSpacing="10.0" mnemonicParsing="false" onAction="#btnStartAction" prefHeight="26.0" prefWidth="59.0" text="Start" />
                   <Button fx:id="btnStop" mnemonicParsing="false" onAction="#btnStopAction" prefHeight="25.0" prefWidth="60.0" text="Stop" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <Button fx:id="exportImage" layoutX="51.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnExportImage" text="Export Image" />
-            <TextField fx:id="addEdgeStart" layoutX="88.0" layoutY="315.0" onAction="#inputAddEdge" style="-fx-max-width: 40;" />
-            <TextField fx:id="addVertex" layoutX="100.0" layoutY="360.0" onAction="#inputAddVertex" style="-fx-max-width: 80;" />
-            <Button fx:id="submitVertex" layoutX="45.0" layoutY="411.0" mnemonicParsing="false" onAction="#addSubmitVertex" text="ADD" />
-            <Label layoutX="10.0" layoutY="307.0" text="Add  Egde" />
-            <Label layoutX="8.0" layoutY="364.0" text="Add Vertex" />
-            <TextField fx:id="addEdgeEnd" layoutX="160.0" layoutY="315.0" style="-fx-max-width: 40;" />
-            <Label layoutX="95.0" layoutY="290.0" text="Start" />
-            <Label layoutX="169.0" layoutY="290.0" text="End" />
-            <Button fx:id="btnRemove" layoutX="123.0" layoutY="411.0" mnemonicParsing="false" onAction="#btnRemoveAction" text="REMOVE" />
+            <Button fx:id="exportImage" layoutX="57.0" layoutY="452.0" mnemonicParsing="false" onAction="#btnExportImage" text="Export Image">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <TextField fx:id="addEdgeStart" layoutX="76.0" layoutY="277.0" maxWidth="50.0" onAction="#inputAddEdge" prefHeight="26.0" prefWidth="50.0" style="-fx-max-width: 50;" />
+            <TextField fx:id="addVertex" layoutX="85.0" layoutY="338.0" onAction="#inputAddVertex" prefHeight="28.0" prefWidth="80.0" style="-fx-max-width: 80;" />
+            <Button fx:id="submitVertex" layoutX="27.0" layoutY="398.0" mnemonicParsing="false" onAction="#addSubmitVertex" prefHeight="26.0" prefWidth="68.0" text="ADD" />
+            <Label layoutX="14.0" layoutY="277.0" prefHeight="29.0" prefWidth="50.0" text="Edge">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Label>
+            <Label layoutX="18.0" layoutY="343.0" text="Vertex">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField fx:id="addEdgeEnd" layoutX="144.0" layoutY="278.0" style="-fx-max-width: 50;" />
+            <Label layoutX="83.0" layoutY="254.0" prefHeight="17.0" prefWidth="36.0" text="Start" />
+            <Label layoutX="158.0" layoutY="254.0" text="End" />
+            <Button fx:id="btnRemove" layoutX="119.0" layoutY="398.0" mnemonicParsing="false" onAction="#btnRemoveAction" text="REMOVE" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="222.0" layoutY="387.0" prefHeight="110.0" prefWidth="435.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="222.0" layoutY="387.0" prefHeight="80.0" prefWidth="435.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label layoutX="34.0" layoutY="42.0" text="History Path" textFill="#d2b7b7">
+            <Label layoutX="46.0" layoutY="14.0" prefHeight="44.0" prefWidth="82.0" text="History Path" textFill="#d2b7b7">
                <font>
-                  <Font size="20.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <TextArea fx:id="historicalPath" editable="false" layoutX="144.0" layoutY="-77.0" prefHeight="130.0" prefWidth="200.0" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="222.0" layoutY="33.0" prefHeight="266.0" prefWidth="313.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="28.0">
+      <AnchorPane layoutX="222.0" layoutY="33.0" prefHeight="266.0" prefWidth="313.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="28.0">
          <children>
             <AnchorPane fx:id="graphShow" layoutX="50.0" layoutY="81.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
          </children>
