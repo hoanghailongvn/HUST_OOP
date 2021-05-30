@@ -410,11 +410,10 @@ public class Controller implements Initializable {
         itemSaveAs.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //Opening a dialog box
-                fileChooser.showSaveDialog(Main.stage);
+                selectedFile = fileChooser.showSaveDialog(Main.stage);
+                itemSaveAction();
             }
         });
-//        FileChooser fc = new FileChooser();
-//        File fileSaveAs = fc.showOpenDialog(null);
 
     }
 
