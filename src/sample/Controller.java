@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
 import org.jgrapht.alg.drawing.model.Point2D;
@@ -42,11 +44,12 @@ public class Controller implements Initializable {
         alert.setHeaderText("Xác nhận muốn đóng hay không ? ");
         // option != null.
         Optional<ButtonType> option = alert.showAndWait();
-       if(option.get() == ButtonType.OK) {
-           Platform.exit();
-           System.exit(0);
+        if (option.get() == ButtonType.OK) {
+            Platform.exit();
+            System.exit(0);
         }
     }
+
     @FXML
     private TextArea historicalPath;
 
@@ -55,15 +58,15 @@ public class Controller implements Initializable {
     private TextArea allPath;
 
 
-
     @FXML
     private MenuItem fileOpen;
     public static File select;
-    public void fileOpenAction(ActionEvent event){
+
+    public void fileOpenAction(ActionEvent event) {
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
-        if(selectedFile != null){
+        if (selectedFile != null) {
             select = selectedFile;
             //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(selectedFile);
@@ -72,7 +75,7 @@ public class Controller implements Initializable {
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
                     .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
+                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
                     .edges(true, (edge, path) -> {
                         path.setFill(Color.DARKBLUE);
                         path.getStrokeDashArray().addAll(20., 0.);
@@ -89,27 +92,27 @@ public class Controller implements Initializable {
                         shape.setFill(Color.YELLOW);
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
-            Main.graphDisplay.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
-                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
-                }
-            });
+
             Main.graphDisplay.render();
 
 
-            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
 
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
 
-
+            anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+//                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
+//                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
+                }
+            });
 
             Main.allEdge = Main.g.vertexSet();
             Main.stage.show();
 
-        }else{
+        } else {
             System.out.println("File is not valid");
 
         }
@@ -120,41 +123,49 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField inputBegin;
-    public void inputBeginAction(ActionEvent event){
+
+    public void inputBeginAction(ActionEvent event) {
 
     }
 
     @FXML
     private TextField inputEnd;
-    public void inputEndAction(ActionEvent event){
+
+    public void inputEndAction(ActionEvent event) {
 
     }
+
     @FXML
     private Button btnStart;
-    public void btnStartAction(ActionEvent event){
+
+    public void btnStartAction(ActionEvent event) {
         textEnd = inputEnd.getText();
         textBegin = inputBegin.getText();
         Main.graphDisplay.render(textBegin, textEnd);
 
 
     }
+
     @FXML
     private Button btnStop;
-    public void btnStopAction(ActionEvent event){
+
+    public void btnStopAction(ActionEvent event) {
         Main.graphDisplay.situation = false;
         Main.graphDisplay.setElements();
     }
+
     @FXML
     private Button btnNext;
-    public void btnNextAction(ActionEvent event){
-        if(Main.g == null) {
+
+    public void btnNextAction(ActionEvent event) {
+        if (Main.g == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Open file first");
             alert.show();
             return;
         }
-        if(Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
+        if (Main.graphDisplay.count < Main.graphDisplay.passedVertex.size()) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
             Main.graphDisplay.count += 1;
@@ -176,15 +187,16 @@ public class Controller implements Initializable {
 
     @FXML
     private Button btnBack;
-    public void btnBackAction(ActionEvent event){
-        if(Main.g == null) {
+
+    public void btnBackAction(ActionEvent event) {
+        if (Main.g == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Open file first");
             alert.show();
             return;
         }
-        if(Main.graphDisplay.count > 1) {
+        if (Main.graphDisplay.count > 1) {
             Main.graphDisplay.customActionOnClickReset_2.execute(Main.graphDisplay,
                     Main.graphDisplay.passedVertex.get(Main.graphDisplay.count - 1));
             Main.graphDisplay.count -= 1;
@@ -210,8 +222,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button exportImage;
-    public void btnExportImage(){
-        if(Main.g == null) {
+
+    public void btnExportImage() {
+        if (Main.g == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Open file first");
@@ -231,7 +244,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField addEdgeStart;
-    public void inputAddEdge(){
+
+    public void inputAddEdge() {
 
     }
 
@@ -240,13 +254,15 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField addVertex;
-    public  void inputAddVertex(){
+
+    public void inputAddVertex() {
 
     }
 
     @FXML
-    private  Button submitVertex;
-    public void addSubmitVertex(){
+    private Button submitVertex;
+
+    public void addSubmitVertex() {
         addEdgeStartText = addEdgeStart.getText();
         addEdgeEndText = addEdgeEnd.getText();
         addVertexText = addVertex.getText().trim();
@@ -254,12 +270,12 @@ public class Controller implements Initializable {
         GraphDisplay graphDisplay1 = Main.graphDisplay;
         String test = "";
         System.out.println(addVertexText);
-        if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
-             test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
-             test = test.trim();
+        if (addEdgeStartText.trim() != null || addEdgeEndText.trim() != null) {
+            test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
+            test = test.trim();
         }
-        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText))){
-            if(!addEdgeEndText.equals(addVertexText) && !addEdgeStartText.equals(addVertexText)){
+        if ((!Main.allEdge.contains(addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText))) {
+            if (!addEdgeEndText.equals(addVertexText) && !addEdgeStartText.equals(addVertexText)) {
                 test = "";
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Ok");
@@ -268,9 +284,9 @@ public class Controller implements Initializable {
             }
 
         }
-        if(Main.allEdge.contains(addEdgeStartText)){
+        if (Main.allEdge.contains(addEdgeStartText)) {
             List<String> vertexes = Main.getNeighbors(addEdgeStartText);
-            if(vertexes.contains(addEdgeEndText)){
+            if (vertexes.contains(addEdgeEndText)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Ok");
                 alert.setHeaderText("Canh da ton tai");
@@ -278,7 +294,7 @@ public class Controller implements Initializable {
                 test = "";
             }
         }
-        if(Main.allEdge.contains(addVertexText)){
+        if (Main.allEdge.contains(addVertexText)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ok");
             alert.setHeaderText("Đỉnh da ton tai roi");
@@ -287,14 +303,14 @@ public class Controller implements Initializable {
         }
 
         Main.writeFileAdd(select, test, addVertexText);
-        if(select != null){
+        if (select != null) {
             Main.readGraph(select);
             Main.allEdge = Main.g.vertexSet();
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
                     .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() -25), character -> new Text(character.toString()))
+                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
                     .edges(true, (edge, path) -> {
                         path.setFill(Color.DARKBLUE);
                         path.getStrokeDashArray().addAll(20., 0.);
@@ -313,7 +329,7 @@ public class Controller implements Initializable {
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
             Main.graphDisplay.render();
             Main.allEdge = Main.g.vertexSet();
-            AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+            AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
             anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
@@ -325,20 +341,24 @@ public class Controller implements Initializable {
             });
             Main.stage.show();
 
-        }else{
+        } else {
             System.out.println("File is not valid");
 
         }
 
     }
 
-    @FXML private MenuItem helpAbout;
-    public void helpAbout(ActionEvent event){
+    @FXML
+    private MenuItem helpAbout;
 
+    //@FXML private WebView webViewTest;
+    public void helpAbout(ActionEvent event) {
+        // WebView webView = new WebView();
+
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setHeaderText("Help");
+//        alert.showAndWait();
     }
-
-
-        
 
 
 }
