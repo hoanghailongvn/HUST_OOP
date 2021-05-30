@@ -398,8 +398,19 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem itemSaveAs;
     public void itemSaveAsAction(){
-        FileChooser fc = new FileChooser();
-        File fileSaveAs = fc.showOpenDialog(null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+        //Adding action on the menu item
+        itemSaveAs.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //Opening a dialog box
+                fileChooser.showSaveDialog(Main.stage);
+            }
+        });
+//        FileChooser fc = new FileChooser();
+//        File fileSaveAs = fc.showOpenDialog(null);
+
     }
 
 
