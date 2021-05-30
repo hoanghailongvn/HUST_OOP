@@ -381,11 +381,13 @@ public class Controller implements Initializable {
 
     //@FXML private WebView webViewTest;
     public void helpAbout(ActionEvent event) {
-        // WebView webView = new WebView();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("INFORMATION");
+        alert.setHeaderText("Introduce");
+        alert.setContentText("MY TEAM: \n 1. Hoàng Hải Long \n 2. Nguyễn Hoàng Sơn \n 3. Chu Thị Hiền" +
+                " \n 4. Phạm Thị Mai Tuyết \n 5.Bùi Vân Anh \n 6. Phạm Thị Minh Thư\n Cần trợ giúp và góp ý về project của team mình các bạn hãy liên hệ qua email : minhthutb111@gmail.com");
+        alert.show();
 
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setHeaderText("Help");
-//        alert.showAndWait();
     }
 
 
