@@ -28,12 +28,10 @@ public class Main extends Application {
     public static Graph<String, DefaultEdge> g = null;
     public static GraphDisplay<String, DefaultEdge> graphDisplay = new GraphDisplay<>(g);
     public static List<List<String>> g_adj = null;
-    public static StackPane layout;
     public static Parent root;
     public static Stage stage;
     public static TextArea historicalPath;
     public static TextArea allPath;
-    public static Set<String> allEdge = new HashSet<>();
     public static int readGraph(File path) {
         // args: Đường dẫn đến file danh sách kề txt
         // đọc và lưu vào graph Main.g
