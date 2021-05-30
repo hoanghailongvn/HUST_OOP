@@ -11,6 +11,22 @@ class Edge2D extends Path {
 
 	private Edge2D(double startX, double startY, double endX, double endY, boolean arrowHead, double arrowHeadSize){
 		super();
+		double R = 15;
+		double newX = endX - startX;
+		double newY = endY - startY;
+		double alpha = Math.atan(newY/newX);
+		if(newX > 0) {
+			endX -= Math.cos(alpha) * R;
+			endY -= Math.sin(alpha) * R;
+			startX += Math.cos(alpha) * R;
+			startY += Math.sin(alpha) * R;
+		} else {
+			endX += Math.cos(alpha) * R;
+			endY += Math.sin(alpha) * R;
+			startX -= Math.cos(alpha) * R;
+			startY -= Math.sin(alpha) * R;
+		}
+
 		strokeProperty().bind(fillProperty());
 		setFill(Color.BLACK);
 
