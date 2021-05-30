@@ -384,9 +384,10 @@ public class Controller implements Initializable {
 
     @FXML
     private MenuItem itemSave;
-    public void itemSaveAction(){
+
+    public void itemSaveAction() {
         try {
-            if(selectedFile == null) {
+            if (selectedFile == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText("Open file first");
@@ -394,9 +395,9 @@ public class Controller implements Initializable {
                 return;
             }
             FileWriter fileWriter = new FileWriter(selectedFile);
-            for(int i = 0; i < Main.g_adj.size(); i++) {
+            for (int i = 0; i < Main.g_adj.size(); i++) {
                 fileWriter.write(Main.g_adj.get(i).get(0));
-                for(int j = 1; j < Main.g_adj.get(i).size(); j++) {
+                for (int j = 1; j < Main.g_adj.get(i).size(); j++) {
                     fileWriter.write(" " + Main.g_adj.get(i).get(j));
                 }
                 fileWriter.write("\n");
@@ -409,30 +410,28 @@ public class Controller implements Initializable {
 
     @FXML
     private MenuItem itemSaveAs;
-    public void itemSaveAsAction(){
+
+    public void itemSaveAsAction() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
-        //Adding action on the menu item
-        itemSaveAs.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                //Opening a dialog box
-                if(Main.g == null) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Open file first");
-                    alert.show();
-                    return;
-                }
-                selectedFile = fileChooser.showSaveDialog(Main.stage);
-                itemSaveAction();
-            }
-        });
+
+        if (Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
+        selectedFile = fileChooser.showSaveDialog(Main.stage);
+        itemSaveAction();
 
     }
 
-
-
-
+    ;
 
 }
+
+
+
+
