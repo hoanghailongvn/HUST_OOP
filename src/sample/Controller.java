@@ -428,7 +428,17 @@ public class Controller implements Initializable {
 
     }
 
-    ;
+    @FXML
+    private Button btnRemove;
+    public static String removeEdgeStartText;
+    public static String removeEdgeEndText;
+    public static String removeVertexText;
+
+    public void btnRemoveAction() {
+        removeEdgeStartText = addEdgeStart.getText();
+        removeEdgeEndText = addEdgeEnd.getText();
+        removeVertexText = addVertex.getText().trim();
+    }
 
 }
 

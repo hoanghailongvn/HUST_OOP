@@ -113,12 +113,13 @@
             <Button fx:id="exportImage" layoutX="51.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnExportImage" text="Export Image" />
             <TextField fx:id="addEdgeStart" layoutX="88.0" layoutY="315.0" onAction="#inputAddEdge" style="-fx-max-width: 40;" />
             <TextField fx:id="addVertex" layoutX="100.0" layoutY="360.0" onAction="#inputAddVertex" style="-fx-max-width: 80;" />
-            <Button fx:id="submitVertex" layoutX="67.0" layoutY="410.0" mnemonicParsing="false" onAction="#addSubmitVertex" text="ADD" />
+            <Button fx:id="submitVertex" layoutX="45.0" layoutY="411.0" mnemonicParsing="false" onAction="#addSubmitVertex" text="ADD" />
             <Label layoutX="10.0" layoutY="307.0" text="Add  Egde" />
             <Label layoutX="8.0" layoutY="364.0" text="Add Vertex" />
             <TextField fx:id="addEdgeEnd" layoutX="160.0" layoutY="315.0" style="-fx-max-width: 40;" />
             <Label layoutX="95.0" layoutY="290.0" text="Start" />
             <Label layoutX="169.0" layoutY="290.0" text="End" />
+            <Button fx:id="btnRemove" layoutX="123.0" layoutY="411.0" mnemonicParsing="false" onAction="#btnRemoveAction" text="REMOVE" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="222.0" layoutY="387.0" prefHeight="110.0" prefWidth="435.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
