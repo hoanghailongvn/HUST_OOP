@@ -15,8 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import org.jgrapht.Graph;
 import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
 import org.jgrapht.alg.drawing.model.Point2D;
+import org.jgrapht.graph.DefaultEdge;
 
 import java.io.File;
 import java.net.URL;
@@ -66,38 +68,14 @@ public class Controller implements Initializable {
     private LocalDateTime last = null;
 
     public void fileOpenAction(ActionEvent event) {
-        GraphDisplay graphDisplay1 = Main.graphDisplay;
+        GraphDisplay<String, DefaultEdge> graphDisplay1 = Main.graphDisplay;
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             select = selectedFile;
-            //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(selectedFile);
-
-            Main.graphDisplay = (new GraphDisplay<>(Main.g))
-                    .size(400) //khoảng cách giữa các đỉnh
-                    .algorithm(new FRLayoutAlgorithm2D<>())
-                    .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
-                    .edges(true, (edge, path) -> {
-                        path.setFill(Color.DARKBLUE);
-                        path.getStrokeDashArray().addAll(20., 0.);
-                        path.setStrokeWidth(2);
-                        return path;
-                    })
-                    .withActionOnClick(ActionOnClick.MY_ACTION) //khi chưa vào trạng thái tìm đường
-                    .withCustomActionOnClick((character, shape) -> { //khi click vào node đó thì node đó thành màu vàng
-                        shape.setFill(Color.YELLOW);
-                    })
-                    .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))  // click lại thì reset về màu xanh
-                    .withActionOnClick_2(ActionOnClick.MY_ACTION_2) // khi vào trạng thái tìm đường
-                    .withCustomActionOnClick_2((character, shape) -> {
-                        shape.setFill(Color.YELLOW);
-                    })
-                    .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
-
+            Main.graphDisplay = Main.g_to_graphDisplay(Main.g);
             Main.graphDisplay.render();
-
 
             AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
 
@@ -107,11 +85,11 @@ public class Controller implements Initializable {
             anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(mouseEvent.isControlDown()) {
+                    if (mouseEvent.isControlDown()) {
                         if (lastMouseY == null) {
                             lastMouseY = mouseEvent.getX();
                         } else {
-                            if(mouseEvent.getY() < lastMouseY) {
+                            if (mouseEvent.getY() < lastMouseY) {
                                 Main.graphDisplay.setScaleX(Math.min(Main.graphDisplay.getScaleX() + 0.03, 2));
                                 Main.graphDisplay.setScaleY(Math.min(Main.graphDisplay.getScaleY() + 0.03, 2));
                             } else {
@@ -136,8 +114,6 @@ public class Controller implements Initializable {
                 }
             });
 
-
-            Main.allEdge = Main.g.vertexSet();
             Main.stage.show();
 
         } else {
@@ -291,87 +267,110 @@ public class Controller implements Initializable {
     private Button submitVertex;
 
     public void addSubmitVertex() {
+        if (Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
+
         addEdgeStartText = addEdgeStart.getText();
         addEdgeEndText = addEdgeEnd.getText();
         addVertexText = addVertex.getText().trim();
+        String error_output = "";
 
-        GraphDisplay graphDisplay1 = Main.graphDisplay;
-        String test = "";
-        System.out.println(addVertexText);
-        if (addEdgeStartText.trim() != null || addEdgeEndText.trim() != null) {
-            test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
-            test = test.trim();
-        }
-        if ((!Main.allEdge.contains(addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText))) {
-            if (!addEdgeEndText.equals(addVertexText) && !addEdgeStartText.equals(addVertexText)) {
-                test = "";
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ok");
-                alert.setHeaderText("Đỉnh chưa tồn tại nên không thẻ tạo cạnh");
-                alert.show();
-            }
-
-        }
-        if (Main.allEdge.contains(addEdgeStartText)) {
-            List<String> vertexes = Main.getNeighbors(addEdgeStartText);
-            if (vertexes.contains(addEdgeEndText)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ok");
-                alert.setHeaderText("Canh da ton tai");
-                alert.show();
-                test = "";
-            }
-        }
-        if (Main.allEdge.contains(addVertexText)) {
+        if (addEdgeStartText.length() == 0 && addEdgeEndText.length() == 0 && addVertexText.length() == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Ok");
-            alert.setHeaderText("Đỉnh da ton tai roi");
+            alert.setTitle("Error");
+            alert.setHeaderText("Input Empty");
             alert.show();
-            addVertexText = "";
+            return;
+        }
+        boolean check = false;
+        if (addVertexText.length() > 0) {
+            if (Main.g.vertexSet().contains(addVertexText)) {
+                error_output += "Vertex Existed! Add Vertex Fail\n";
+            } else {
+                Main.g.addVertex(addVertexText);
+                error_output += "Vertex add successfully!\n";
+                check = true;
+            }
         }
 
-        Main.writeFileAdd(select, test, addVertexText);
-        if (select != null) {
-            Main.readGraph(select);
-            Main.allEdge = Main.g.vertexSet();
-            Main.graphDisplay = (new GraphDisplay<>(Main.g))
-                    .size(400) //khoảng cách giữa các đỉnh
-                    .algorithm(new FRLayoutAlgorithm2D<>())
-                    .vertices(character -> new Circle(15, Color.BLUE))
-                    .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
-                    .edges(true, (edge, path) -> {
-                        path.setFill(Color.DARKBLUE);
-                        path.getStrokeDashArray().addAll(20., 0.);
-                        path.setStrokeWidth(2);
-                        return path;
-                    })
-                    .withActionOnClick(ActionOnClick.MY_ACTION)
-                    .withCustomActionOnClick((character, shape) -> {
-                        shape.setFill(Color.YELLOW);
-                    })
-                    .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))
-                    .withActionOnClick_2(ActionOnClick.MY_ACTION_2)
-                    .withCustomActionOnClick_2((character, shape) -> {
-                        shape.setFill(Color.YELLOW);
-                    })
-                    .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
+        if (addEdgeStartText.length() > 0 || addEdgeEndText.length() > 0) {
+            if (addEdgeStartText.length() == 0) {
+                error_output += "Edge Start Empty! Add edge Fail\n";
+            } else if (addEdgeEndText.length() == 0) {
+                error_output += "Edge End Empty! Add edge Fail\n";
+            } else if (!Main.g.vertexSet().contains(addEdgeStartText) || !Main.g.vertexSet().contains(addEdgeEndText)) {
+                if (!Main.g.vertexSet().contains(addEdgeStartText)) {
+                    error_output += "Vertex ";
+                    error_output += addEdgeStartText;
+                    error_output += " does not exist\n";
+                }
+                if (!Main.g.vertexSet().contains(addEdgeEndText)) {
+                    error_output += "Vertex ";
+                    error_output += addEdgeEndText;
+                    error_output += " does not exist\n";
+                }
+            } else if (!Main.g.getAllEdges(addEdgeStartText, addEdgeEndText).isEmpty()) {
+                System.out.println("ok");
+                error_output += "Edge Existed! Add edge Fail\n";
+            } else {
+                Main.g.addEdge(addEdgeStartText, addEdgeEndText);
+                error_output += "Edge add successfully!\n";
+                check = true;
+            }
+        }
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(error_output);
+        alert.show();
+
+        if (check) {
+            GraphDisplay<String, DefaultEdge> temp = Main.graphDisplay;
+
+            Main.graphDisplay = Main.g_to_graphDisplay(Main.g);
             Main.graphDisplay.render();
-            Main.allEdge = Main.g.vertexSet();
             AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
-            anchorPane.getChildren().remove(graphDisplay1);
+
+            anchorPane.getChildren().remove(temp);
             anchorPane.getChildren().add(Main.graphDisplay);
+
             anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
-                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
+                    if (mouseEvent.isControlDown()) {
+                        if (lastMouseY == null) {
+                            lastMouseY = mouseEvent.getX();
+                        } else {
+                            if (mouseEvent.getY() < lastMouseY) {
+                                Main.graphDisplay.setScaleX(Math.min(Main.graphDisplay.getScaleX() + 0.03, 2));
+                                Main.graphDisplay.setScaleY(Math.min(Main.graphDisplay.getScaleY() + 0.03, 2));
+                            } else {
+                                Main.graphDisplay.setScaleX(Math.max(Main.graphDisplay.getScaleX() - 0.03, 0.5));
+                                Main.graphDisplay.setScaleY(Math.max(Main.graphDisplay.getScaleY() - 0.03, 0.5));
+                            }
+                            lastMouseY = mouseEvent.getY();
+                        }
+                    } else {
+                        if (lastMouseX == null || ChronoUnit.MILLIS.between(last, LocalDateTime.now()) > 100) {
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        } else {
+                            Main.graphDisplay.setLayoutX(Main.graphDisplay.getLayoutX() + mouseEvent.getX() - lastMouseX);
+                            Main.graphDisplay.setLayoutY(Main.graphDisplay.getLayoutY() + mouseEvent.getY() - lastMouseY);
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        }
+                    }
                 }
             });
-            Main.stage.show();
-
-        } else {
-            System.out.println("File is not valid");
-
         }
 
     }

@@ -5,12 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
+import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
+import org.jgrapht.alg.drawing.model.Point2D;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -56,6 +61,30 @@ public class Main extends Application {
             return -1;
         }
         return 0;
+    }
+
+    public static GraphDisplay<String, DefaultEdge> g_to_graphDisplay(Graph<String, DefaultEdge> g) {
+        return (new GraphDisplay<>(Main.g))
+                .size(400) //khoảng cách giữa các đỉnh
+                .algorithm(new FRLayoutAlgorithm2D<>())
+                .vertices(character -> new Circle(15, Color.BLUE))
+                .labels(point2D -> new Point2D(point2D.getX(), point2D.getY() - 25), character -> new Text(character.toString()))
+                .edges(true, (edge, path) -> {
+                    path.setFill(Color.DARKBLUE);
+                    path.getStrokeDashArray().addAll(20., 0.);
+                    path.setStrokeWidth(2);
+                    return path;
+                })
+                .withActionOnClick(ActionOnClick.MY_ACTION) //khi chưa vào trạng thái tìm đường
+                .withCustomActionOnClick((character, shape) -> { //khi click vào node đó thì node đó thành màu vàng
+                    shape.setFill(Color.YELLOW);
+                })
+                .withCustomActionOnClickReset((character, shape) -> shape.setFill(Color.BLUE))  // click lại thì reset về màu xanh
+                .withActionOnClick_2(ActionOnClick.MY_ACTION_2) // khi vào trạng thái tìm đường
+                .withCustomActionOnClick_2((character, shape) -> {
+                    shape.setFill(Color.YELLOW);
+                })
+                .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
     }
     public static void writeDotFile(List<List<String>> g_adj, File path){
         try {
@@ -143,43 +172,8 @@ public class Main extends Application {
             }
         }
     }
-    public static void writeFileAdd(File path, String addEdgeFromInput, String addVertexFromInput){
-        try{
-            FileWriter fw = new FileWriter(path,true);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            if((addEdgeFromInput.trim() != null && addEdgeFromInput != "")){
-                bw.write("\n" + addEdgeFromInput);
-            }
-            if((addVertexFromInput.trim() != null && addVertexFromInput != "") && !allEdge.contains(addVertexFromInput) ){
-                bw.write( "\n" + addVertexFromInput);
-            }
-            bw.close();
-
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static List<String> getNeighbors (String part)
-    {
-        return Graphs.neighborListOf(Main.g, part);
-    }
-
-    public static void mouseEventVertex(String vertex, MouseEvent event){
-
-        List<String> list_vertex = new ArrayList<>();
-            list_vertex = getNeighbors(vertex);
-        for(int i = 0; i < list_vertex.size(); i++){
 
 
-        }
-
-
-    }
     @Override
     public void start(Stage primaryStage) throws Exception{
         root = FXMLLoader.load(getClass().getResource("sample.fxml"));

@@ -135,6 +135,7 @@ public class GraphDisplay<V, E> extends Region {
     }
 
     public void render() { //todo this should be the step that returns the finished object, refactor
+        this.situation = false;
         layoutGraph();
         setElements();
     }
