@@ -53,16 +53,12 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="helpAbout" mnemonicParsing="false" onAction="#helpAbout" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
       <Separator layoutX="216.0" layoutY="26.0" orientation="VERTICAL" prefHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="28.0" />
-      <AnchorPane fx:id="graphShow" layoutX="227.0" layoutY="293.0" prefHeight="99.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="45.0">
-         <padding>
-            <Insets bottom="30.0" left="100.0" right="30.0" top="60.0" />
-         </padding></AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="43.0" prefHeight="173.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
          <children>
             <Label layoutX="8.0" layoutY="49.0" text="Start Vertex">
@@ -78,7 +74,8 @@
             <Label layoutX="8.0" layoutY="88.0" text="End Vertex">
                <font>
                   <Font size="16.0" />
-               </font></Label>
+               </font>
+            </Label>
             <TextField fx:id="inputEnd" layoutX="100.0" layoutY="84.0" onAction="#inputEndAction" style="-fx-max-width: 50;" />
             <HBox layoutX="50.0" layoutY="210.0" prefHeight="20.0" prefWidth="90.0" spacing="10.0">
                <children>
@@ -130,6 +127,11 @@
                </font>
             </Label>
             <TextArea fx:id="historicalPath" editable="false" layoutX="144.0" layoutY="-77.0" prefHeight="130.0" prefWidth="200.0" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="222.0" layoutY="33.0" prefHeight="266.0" prefWidth="313.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="28.0">
+         <children>
+            <AnchorPane fx:id="graphShow" layoutX="50.0" layoutY="81.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
    </children>

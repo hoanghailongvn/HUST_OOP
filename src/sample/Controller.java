@@ -3,9 +3,12 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -17,6 +20,7 @@ import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -32,8 +36,15 @@ public class Controller implements Initializable {
 
     @FXML
     void Action(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("xác nhận");
+        alert.setHeaderText("Xác nhận muốn đóng hay không ? ");
+        // option != null.
+        Optional<ButtonType> option = alert.showAndWait();
+       if(option.get() == ButtonType.OK) {
+           Platform.exit();
+           System.exit(0);
+        }
 
     }
 
@@ -57,6 +68,7 @@ public class Controller implements Initializable {
             select = selectedFile;
             //Main.writeFileAdd(selectedFile,"8 5","8");
             Main.readGraph(selectedFile);
+
             Main.graphDisplay = (new GraphDisplay<>(Main.g))
                     .size(400) //khoảng cách giữa các đỉnh
                     .algorithm(new FRLayoutAlgorithm2D<>())
@@ -78,11 +90,23 @@ public class Controller implements Initializable {
                         shape.setFill(Color.YELLOW);
                     })
                     .withCustomActionOnClickReset_2(ActionOnClick.MY_ACTION_2_RESET);
+            Main.graphDisplay.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
+                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
+                }
+            });
             Main.graphDisplay.render();
 
+
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
+
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
+
+
+
             Main.allEdge = Main.g.vertexSet();
             Main.stage.show();
 
@@ -232,14 +256,21 @@ public class Controller implements Initializable {
         String test = "";
         if( addEdgeStartText.trim() != null || addEdgeEndText.trim() != null  ){
              test = addEdgeStartText.trim() + " " + addEdgeEndText.trim();
-            test = test.trim();
+             test = test.trim();
         }
-        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText)) && !addVertexText.equals(addEdgeEndText) && !addVertexText.equals(addEdgeStartText)){
+        if((!Main.allEdge.contains( addEdgeEndText) || !Main.allEdge.contains(addEdgeStartText)) && (!addVertexText.equals(addEdgeEndText) && !addVertexText.equals(addEdgeStartText))){
             test = "";
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ok");
             alert.setHeaderText("Đỉnh chưa tồn tại nên không thẻ tạo cạnh");
             alert.show();
+        }
+        if(Main.allEdge.contains(addVertexText)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ok");
+            alert.setHeaderText("Đỉnh da ton tai roi");
+            alert.show();
+            addVertexText = "";
         }
         Main.writeFileAdd(select, test, addVertexText);
         if(select != null){
@@ -271,6 +302,13 @@ public class Controller implements Initializable {
             AnchorPane anchorPane = ( AnchorPane) Main.root.lookup("#graphShow");
             anchorPane.getChildren().remove(graphDisplay1);
             anchorPane.getChildren().add(Main.graphDisplay);
+            anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
+                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
+                }
+            });
             Main.stage.show();
 
         }else{
@@ -279,6 +317,14 @@ public class Controller implements Initializable {
         }
 
     }
+
+    @FXML private MenuItem helpAbout;
+    public void helpAbout(ActionEvent event){
+
+    }
+
+
+        
 
 
 }

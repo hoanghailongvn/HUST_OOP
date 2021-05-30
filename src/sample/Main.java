@@ -14,6 +14,7 @@ import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -163,9 +164,21 @@ public class Main extends Application {
 
     }
 
-    public List<String> getNeighbors (String part)
+    public static List<String> getNeighbors (String part)
     {
         return Graphs.neighborListOf(Main.g, part);
+    }
+
+    public static void mouseEventVertex(String vertex, MouseEvent event){
+
+        List<String> list_vertex = new ArrayList<>();
+            list_vertex = getNeighbors(vertex);
+        for(int i = 0; i < list_vertex.size(); i++){
+
+
+        }
+
+
     }
     @Override
     public void start(Stage primaryStage) throws Exception{
