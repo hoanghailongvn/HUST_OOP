@@ -41,12 +41,10 @@ public class Main extends Application {
         Main.g = new DefaultDirectedGraph<>(DefaultEdge.class);
         try {
             Scanner myReader = new Scanner(path);
-            Main.g_adj = new ArrayList<>();
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 data = data.strip();
                 String[] splitted_data = data.split("\\s+");
-                Main.g_adj.add(Arrays.asList(splitted_data));
                 String start = splitted_data[0];
                 Main.g.addVertex(start);
                 for(int i = 1; i < splitted_data.length; i++) {
@@ -61,6 +59,17 @@ public class Main extends Application {
             return -1;
         }
         return 0;
+    }
+
+    public static List<List<String>> g_to_adj(Graph<String, DefaultEdge> g) {
+        List<List<String>> res = new ArrayList<>();
+        for(String string: Main.g.vertexSet()) {
+            List<String> temp = new ArrayList<>();
+            temp.add(string);
+            temp.addAll(Graphs.successorListOf(g, string));
+            res.add(temp);
+        }
+        return res;
     }
 
     public static GraphDisplay<String, DefaultEdge> g_to_graphDisplay(Graph<String, DefaultEdge> g) {
@@ -90,7 +99,8 @@ public class Main extends Application {
         try {
             FileWriter fileWriter = new FileWriter(path);
             fileWriter.write("strict digraph myGraph {\n");
-            for(List<String> line: Main.g_adj) {
+            for(List<String> line: g_adj) {
+                fileWriter.write(line.get(0) + "\n");
                 for(int i = 1; i < line.size(); i++) {
                     fileWriter.write(line.get(0));
                     fileWriter.write(" -> ");
@@ -113,7 +123,8 @@ public class Main extends Application {
                 listPair.add(new Pair<>(red.get(i), red.get(i+1)));
             }
             fileWriter.write("strict digraph myGraph {\n");
-            for(List<String> line: Main.g_adj) {
+            for(List<String> line: g_adj) {
+                fileWriter.write(line.get(0) + "\n");
                 for(int i = 1; i < line.size(); i++) {
                     fileWriter.write(line.get(0));
                     fileWriter.write(" -> ");
@@ -158,7 +169,7 @@ public class Main extends Application {
         for(File file: filePng) {
             file.delete();
         }
-
+        System.out.println(Main.g_adj);
         writeDotFile(Main.g_adj, new File(Main.pathDot + File.separator + "all.dot"));
         writePngFile(new File(Main.pathDot  + File.separator + "all.dot"),
                 new File(Main.pathPng + File.separator + "all.png"));

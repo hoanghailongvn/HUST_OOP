@@ -138,6 +138,7 @@ public class GraphDisplay<V, E> extends Region {
         this.situation = false;
         layoutGraph();
         setElements();
+        Main.g_adj = Main.g_to_adj(Main.g);
     }
 
     class NodeAllPath {
