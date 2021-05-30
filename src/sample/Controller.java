@@ -7,24 +7,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import org.jgrapht.Graph;
-import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
-import org.jgrapht.alg.drawing.model.Point2D;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,7 +56,7 @@ public class Controller implements Initializable {
 
     @FXML
     private MenuItem fileOpen;
-    public static File select;
+    public static File selectedFile;
     private Double lastMouseX = null;
     private Double lastMouseY = null;
     private LocalDateTime last = null;
@@ -72,7 +66,7 @@ public class Controller implements Initializable {
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
-            select = selectedFile;
+            Controller.selectedFile = selectedFile;
             Main.readGraph(selectedFile);
             Main.graphDisplay = Main.g_to_graphDisplay(Main.g);
             Main.graphDisplay.render();
@@ -391,7 +385,19 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem itemSave;
     public void itemSaveAction(){
-
+        try {
+            FileWriter fileWriter = new FileWriter(selectedFile);
+            for(int i = 0; i < Main.g_adj.size(); i++) {
+                fileWriter.write(Main.g_adj.get(i).get(0));
+                for(int j = 1; j < Main.g_adj.get(i).size(); j++) {
+                    fileWriter.write(" " + Main.g_adj.get(i).get(j));
+                }
+                fileWriter.write("\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
