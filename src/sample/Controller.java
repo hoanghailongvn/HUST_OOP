@@ -111,7 +111,7 @@ public class Controller implements Initializable {
                         if (lastMouseY == null) {
                             lastMouseY = mouseEvent.getX();
                         } else {
-                            if(mouseEvent.getY() > lastMouseY) {
+                            if(mouseEvent.getY() < lastMouseY) {
                                 Main.graphDisplay.setScaleX(Math.min(Main.graphDisplay.getScaleX() + 0.03, 2));
                                 Main.graphDisplay.setScaleY(Math.min(Main.graphDisplay.getScaleY() + 0.03, 2));
                             } else {
