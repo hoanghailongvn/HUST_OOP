@@ -56,7 +56,7 @@ public class Controller implements Initializable {
 
     @FXML
     private MenuItem fileOpen;
-    public static File selectedFile;
+    public static File selectedFile = null;
     private Double lastMouseX = null;
     private Double lastMouseY = null;
     private LocalDateTime last = null;
@@ -386,6 +386,13 @@ public class Controller implements Initializable {
     private MenuItem itemSave;
     public void itemSaveAction(){
         try {
+            if(selectedFile == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("Open file first");
+                alert.show();
+                return;
+            }
             FileWriter fileWriter = new FileWriter(selectedFile);
             for(int i = 0; i < Main.g_adj.size(); i++) {
                 fileWriter.write(Main.g_adj.get(i).get(0));
@@ -410,6 +417,13 @@ public class Controller implements Initializable {
         itemSaveAs.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //Opening a dialog box
+                if(Main.g == null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Open file first");
+                    alert.show();
+                    return;
+                }
                 selectedFile = fileChooser.showSaveDialog(Main.stage);
                 itemSaveAction();
             }
