@@ -386,8 +386,34 @@ public class Controller implements Initializable {
         alert.setContentText("MY TEAM: \n 1. Hoàng Hải Long \n 2. Nguyễn Hoàng Sơn \n 3. Chu Thị Hiền" +
                 " \n 4. Phạm Thị Mai Tuyết \n 5.Bùi Vân Anh \n 6. Phạm Thị Minh Thư\n Cần trợ giúp và góp ý về project của team mình các bạn hãy liên hệ qua email : minhthutb111@gmail.com");
         alert.show();
+    }
+
+    @FXML
+    private MenuItem itemSave;
+    public void itemSaveAction(){
 
     }
+
+    @FXML
+    private MenuItem itemSaveAs;
+    public void itemSaveAsAction(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+        //Adding action on the menu item
+        itemSaveAs.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //Opening a dialog box
+                fileChooser.showSaveDialog(Main.stage);
+            }
+        });
+//        FileChooser fc = new FileChooser();
+//        File fileSaveAs = fc.showOpenDialog(null);
+
+    }
+
+
+
 
 
 }
