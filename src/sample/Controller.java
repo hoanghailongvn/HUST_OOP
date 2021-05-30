@@ -308,7 +308,7 @@ public class Controller implements Initializable {
                     error_output += addEdgeEndText;
                     error_output += " does not exist\n";
                 }
-            } else if (!Main.g.getAllEdges(addEdgeStartText, addEdgeEndText).isEmpty()) {
+            } else if (Main.g.getEdge(addEdgeStartText, addEdgeEndText) != null) {
                 System.out.println("ok");
                 error_output += "Edge Existed! Add edge Fail\n";
             } else {
@@ -368,7 +368,123 @@ public class Controller implements Initializable {
         }
 
     }
+    
+    @FXML
+    private Button btnRemove;
+    public static String removeEdgeStartText;
+    public static String removeEdgeEndText;
+    public static String removeVertexText;
 
+    public void btnRemoveAction() {
+        
+
+        if (Main.g == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Open file first");
+            alert.show();
+            return;
+        }
+
+        removeEdgeStartText = addEdgeStart.getText();
+        removeEdgeEndText = addEdgeEnd.getText();
+        removeVertexText = addVertex.getText().trim();
+        String error_output = "";
+
+        if (removeEdgeStartText.length() == 0 && removeEdgeEndText.length() == 0 && removeVertexText.length() == 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Input Empty");
+            alert.show();
+            return;
+        }
+        boolean check = false;
+        if (removeVertexText.length() > 0) {
+            if (!Main.g.vertexSet().contains(removeVertexText)) {
+                error_output += "Vertex not Existed! Remove Vertex Fail\n";
+            } else {
+                Main.g.removeVertex(removeVertexText);
+                error_output += "Vertex remove successfully!\n";
+                check = true;
+            }
+        }
+
+        if (removeEdgeStartText.length() > 0 || removeEdgeEndText.length() > 0) {
+            if (removeEdgeStartText.length() == 0) {
+                error_output += "Edge Start Empty! Remove edge Fail\n";
+            } else if (removeEdgeEndText.length() == 0) {
+                error_output += "Edge End Empty! Remove edge Fail\n";
+            } else if (!Main.g.vertexSet().contains(removeEdgeStartText) || !Main.g.vertexSet().contains(removeEdgeEndText)) {
+                if (!Main.g.vertexSet().contains(removeEdgeStartText)) {
+                    error_output += "Vertex ";
+                    error_output += removeEdgeStartText;
+                    error_output += " does not exist\n";
+                }
+                if (!Main.g.vertexSet().contains(removeEdgeEndText)) {
+                    error_output += "Vertex ";
+                    error_output += removeEdgeEndText;
+                    error_output += " does not exist\n";
+                }
+            } else if (Main.g.getEdge(removeEdgeStartText, removeEdgeEndText) == null) {
+                error_output += "Edge not Existed! Remove edge Fail\n";
+            } else {
+                Main.g.removeEdge(removeEdgeStartText, removeEdgeEndText);
+                error_output += "Edge remove successfully!\n";
+                check = true;
+            }
+        }
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(error_output);
+        alert.show();
+
+        if (check) {
+            GraphDisplay<String, DefaultEdge> temp = Main.graphDisplay;
+
+            Main.graphDisplay = Main.g_to_graphDisplay(Main.g);
+            Main.graphDisplay.render();
+            AnchorPane anchorPane = (AnchorPane) Main.root.lookup("#graphShow");
+
+            anchorPane.getChildren().remove(temp);
+            anchorPane.getChildren().add(Main.graphDisplay);
+
+            anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.isControlDown()) {
+                        if (lastMouseY == null) {
+                            lastMouseY = mouseEvent.getX();
+                        } else {
+                            if (mouseEvent.getY() < lastMouseY) {
+                                Main.graphDisplay.setScaleX(Math.min(Main.graphDisplay.getScaleX() + 0.03, 2));
+                                Main.graphDisplay.setScaleY(Math.min(Main.graphDisplay.getScaleY() + 0.03, 2));
+                            } else {
+                                Main.graphDisplay.setScaleX(Math.max(Main.graphDisplay.getScaleX() - 0.03, 0.5));
+                                Main.graphDisplay.setScaleY(Math.max(Main.graphDisplay.getScaleY() - 0.03, 0.5));
+                            }
+                            lastMouseY = mouseEvent.getY();
+                        }
+                    } else {
+                        if (lastMouseX == null || ChronoUnit.MILLIS.between(last, LocalDateTime.now()) > 100) {
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        } else {
+                            Main.graphDisplay.setLayoutX(Main.graphDisplay.getLayoutX() + mouseEvent.getX() - lastMouseX);
+                            Main.graphDisplay.setLayoutY(Main.graphDisplay.getLayoutY() + mouseEvent.getY() - lastMouseY);
+                            lastMouseX = mouseEvent.getX();
+                            lastMouseY = mouseEvent.getY();
+                            last = LocalDateTime.now();
+                        }
+                    }
+                }
+            });
+        }
+
+
+    }
     @FXML
     private MenuItem helpAbout;
 
@@ -428,17 +544,7 @@ public class Controller implements Initializable {
 
     }
 
-    @FXML
-    private Button btnRemove;
-    public static String removeEdgeStartText;
-    public static String removeEdgeEndText;
-    public static String removeVertexText;
 
-    public void btnRemoveAction() {
-        removeEdgeStartText = addEdgeStart.getText();
-        removeEdgeEndText = addEdgeEnd.getText();
-        removeVertexText = addVertex.getText().trim();
-    }
 
 }
 
