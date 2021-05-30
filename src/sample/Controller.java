@@ -3,25 +3,25 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import org.jgrapht.alg.drawing.FRLayoutAlgorithm2D;
 import org.jgrapht.alg.drawing.model.Point2D;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -61,6 +61,9 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem fileOpen;
     public static File select;
+    private Double lastMouseX = null;
+    private Double lastMouseY = null;
+    private LocalDateTime last = null;
 
     public void fileOpenAction(ActionEvent event) {
         GraphDisplay graphDisplay1 = Main.graphDisplay;
@@ -104,10 +107,20 @@ public class Controller implements Initializable {
             anchorPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-//                    Main.graphDisplay.setLayoutX(mouseEvent.getX());
-//                    Main.graphDisplay.setLayoutY(mouseEvent.getY());
+                    if(lastMouseX == null || ChronoUnit.MILLIS.between(last, LocalDateTime.now()) > 100)  {
+                        lastMouseX = mouseEvent.getX();
+                        lastMouseY = mouseEvent.getY();
+                        last = LocalDateTime.now();
+                    } else {
+                        Main.graphDisplay.setLayoutX(Main.graphDisplay.getLayoutX() + mouseEvent.getX() - lastMouseX);
+                        Main.graphDisplay.setLayoutY(Main.graphDisplay.getLayoutY() + mouseEvent.getY() - lastMouseY);
+                        lastMouseX = mouseEvent.getX();
+                        lastMouseY = mouseEvent.getY();
+                        last = LocalDateTime.now();
+                    }
                 }
             });
+
 
             Main.allEdge = Main.g.vertexSet();
             Main.stage.show();
