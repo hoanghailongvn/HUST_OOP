@@ -64,6 +64,9 @@ public class Controller implements Initializable {
     public void fileOpenAction(ActionEvent event) {
         GraphDisplay<String, DefaultEdge> graphDisplay1 = Main.graphDisplay;
         FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
+        );
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             Controller.selectedFile = selectedFile;
