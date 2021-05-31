@@ -544,6 +544,13 @@ public class Controller implements Initializable {
 
     }
 
+    @FXML
+    private MenuItem itemNewFile;
+    public void itemNewFileAction(){
+
+    }
+
+
 
 
 }
