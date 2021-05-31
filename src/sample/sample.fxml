@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -25,7 +26,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextArea fx:id="allPath" editable="false" layoutX="-7.0" layoutY="50.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <TextArea fx:id="allPath" editable="false" layoutX="-7.0" layoutY="50.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font size="15.0" />
                </font></TextArea>
@@ -151,10 +152,10 @@
                </font></TextArea>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="222.0" layoutY="33.0" prefHeight="266.0" prefWidth="313.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="28.0">
-         <children>
-            <AnchorPane fx:id="graphShow" layoutX="45.0" layoutY="105.0" prefHeight="337.0" prefWidth="195.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="105.0" />
-         </children>
-      </AnchorPane>
+      <ScrollPane layoutX="256.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="28.0">
+        <content>
+          <AnchorPane fx:id="graphShow" minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1000.0" />
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
