@@ -163,12 +163,14 @@ public class GraphDisplay<V, E> extends Region {
         List<List<V>> result = new ArrayList<>();
         Stack<NodeAllPath> stack = new Stack<NodeAllPath>();
         stack.push(new NodeAllPath(start, Arrays.asList(start)));
+        System.out.println(this.graph);
         while (!stack.isEmpty()) {
             NodeAllPath node_popped = stack.pop();
             for (V v : Graphs.successorListOf(this.graph, node_popped.label)) {
                 if (Collections.frequency(node_popped.visited, v) < 2) {
                     List<V> res_path = new ArrayList<>(node_popped.visited);
                     res_path.add(v);
+                    System.out.println("(res_path) " + res_path);
                     if (v.equals(end)) {
                         result.add(res_path);
                     } else {

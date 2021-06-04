@@ -137,6 +137,14 @@
             <Label layoutX="83.0" layoutY="254.0" prefHeight="17.0" prefWidth="36.0" text="Start" />
             <Label layoutX="158.0" layoutY="254.0" text="End" />
             <Button fx:id="btnRemove" layoutX="119.0" layoutY="398.0" mnemonicParsing="false" onAction="#btnRemoveAction" text="REMOVE" />
+            <Button fx:id="screenshotBtn" layoutX="42.0" layoutY="515.0" lineSpacing="20.0" mnemonicParsing="false" onAction="#screenShotAction" text="Screenshot Graph">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+               </padding>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="222.0" layoutY="387.0" prefHeight="80.0" prefWidth="435.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="0.0">
@@ -152,7 +160,7 @@
                </font></TextArea>
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="256.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="28.0">
+      <ScrollPane fx:id="scrollTest" layoutX="256.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="28.0">
         <content>
           <AnchorPane fx:id="graphShow" minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1000.0" />
         </content>

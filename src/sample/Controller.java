@@ -2,17 +2,21 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import org.jgrapht.graph.DefaultEdge;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -550,6 +554,38 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem itemNewFile;
     public void itemNewFileAction(){
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("New file");
+//        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", ".txt"));
+//        selectedFile = fileChooser.showSaveDialog(Main.stage);
+    }
+
+    @FXML
+    private Button screenshotBtn;
+
+        public void screenShotAction(ActionEvent event) {
+            ScrollPane pane = (ScrollPane) Main.root.lookup("#scrollTest");
+            FileChooser fileChooser = new FileChooser();
+
+            //Set extension filter
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("png files (.png)", ".png"));
+
+            //Prompt user to select a file
+            File file = fileChooser.showSaveDialog(null);
+
+            if (file != null) {
+                try {
+                    //Pad the capture area
+                    WritableImage writableImage = new WritableImage((int) pane.getWidth() + 20,
+                            (int) pane.getHeight() + 20);
+                    pane.snapshot(null, writableImage);
+                    RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                    //Write the snapshot to the chosen file
+                    ImageIO.write(renderedImage, "png", file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
 
     }
 
