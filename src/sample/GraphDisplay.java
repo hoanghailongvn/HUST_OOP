@@ -163,7 +163,6 @@ public class GraphDisplay<V, E> extends Region {
         List<List<V>> result = new ArrayList<>();
         Stack<NodeAllPath> stack = new Stack<NodeAllPath>();
         stack.push(new NodeAllPath(start, Arrays.asList(start)));
-        System.out.println(this.graph);
         while (!stack.isEmpty()) {
             NodeAllPath node_popped = stack.pop();
             for (V v : Graphs.successorListOf(this.graph, node_popped.label)) {

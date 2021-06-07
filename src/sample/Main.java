@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -190,7 +191,9 @@ public class Main extends Application {
         stage = primaryStage;
         historicalPath = (TextArea) root.lookup("#historicalPath") ;
         allPath = (TextArea) root.lookup("#allPath");
-
+        ScrollPane pane = (ScrollPane) Main.root.lookup("#scrollTest");
+        pane.setFitToWidth(true);
+        pane.setFitToHeight(true);
         primaryStage.show();
 
 

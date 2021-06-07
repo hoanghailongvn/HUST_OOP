@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+
     @FXML
     private MenuItem openFile;
 
@@ -222,6 +223,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
     }
 
@@ -552,19 +554,12 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private MenuItem itemNewFile;
-    public void itemNewFileAction(){
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("New file");
-//        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", ".txt"));
-//        selectedFile = fileChooser.showSaveDialog(Main.stage);
-    }
-
-    @FXML
     private Button screenshotBtn;
 
         public void screenShotAction(ActionEvent event) {
             ScrollPane pane = (ScrollPane) Main.root.lookup("#scrollTest");
+            pane.setFitToWidth(true);
+            pane.setFitToHeight(true);
             FileChooser fileChooser = new FileChooser();
 
             //Set extension filter
@@ -576,8 +571,8 @@ public class Controller implements Initializable {
             if (file != null) {
                 try {
                     //Pad the capture area
-                    WritableImage writableImage = new WritableImage((int) pane.getWidth() + 20,
-                            (int) pane.getHeight() + 20);
+                    WritableImage writableImage = new WritableImage((int) pane.getWidth(),
+                            (int) pane.getHeight());
                     pane.snapshot(null, writableImage);
                     RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                     //Write the snapshot to the chosen file
