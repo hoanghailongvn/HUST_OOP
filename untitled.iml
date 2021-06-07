@@ -26,5 +26,6 @@
     <orderEntry type="library" name="org.jgrapht:jgrapht-core:1.5.1" level="project" />
     <orderEntry type="library" name="org.jheaps:jheaps:0.13" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="org.openjfx:javafx-swing:12-ea+6" level="project" />
   </component>
 </module>
